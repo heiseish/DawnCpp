@@ -1,0 +1,29 @@
+[
+    {
+        "id": "Binance",
+        "symbols": [
+            "ETH/BTC",
+            "LTC/BTC",
+            "ETC/BTC",
+            "DASH/BTC",
+            "ZEC/BTC",
+            "XLM/BTC",
+            "ADA/BTC",
+            "XMR/BTC",
+            "BNB/BTC",
+            "QLC/BTC",
+            "KMD/BTC",
+            "WTC/BTC",
+            "TRX/BTC",
+            "XRP/BTC",
+            "EOS/BTC",
+            "XVG/BTC",
+            "NEO/BTC",
+            "LINK/BTC",
+            "ONT/BTC",
+            "XEM/BTC",
+            "VET/BTC",
+            "ICX/BTC"
+        ]
+    }
+]

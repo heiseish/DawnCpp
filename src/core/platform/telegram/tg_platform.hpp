@@ -1,0 +1,32 @@
+#pragma once
+
+#ifndef DAWN_CORE_PLATFORM_TELEGRAM_H
+#define DAWN_CORE_PLATFORM_TELEGRAM_H
+
+#include "core/platform/message.hpp"
+#include "core/platform/platform.hpp"
+#include "core/platform/user_info.hpp"
+
+#ifdef USE_LIBTELEGRAM
+#include <libtelegram/libtelegram.h>
+#endif
+
+namespace Dawn::Core {
+
+class TelegramPlatform : public Platform {
+public:
+    TelegramPlatform();
+    virtual void RegisterHooks() override;
+    virtual void Send(const UserInfo& user_info,
+                      const Message& message) override;
+
+private:
+#ifdef USE_LIBTELEGRAM
+    telegram::sender _sender;
+    telegram::listener::poll _listener;
+#endif
+    const std::string _bot_name;
+};
+
+}  // namespace Dawn::Core
+#endif

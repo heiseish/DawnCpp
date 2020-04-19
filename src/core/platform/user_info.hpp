@@ -1,0 +1,16 @@
+#pragma once
+
+#ifndef CORE_USER_INFO_H
+#define CORE_USER_INFO_H
+
+#include <string>
+
+namespace Dawn::Core {
+struct UserInfo {
+    int32_t message_id;
+    int64_t user_id;
+    std::string first_name;
+};
+
+}  // namespace Dawn::Core
+#endif
