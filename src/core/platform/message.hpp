@@ -10,34 +10,6 @@ enum MessageType { Text = 0, Image = 1, Audio = 2, Location = 3, Video = 4 };
 
 class Message {
 public:
-    Message() = default;
-    Message(const Message& other)
-        : _message_type(other._message_type), _payload(other._payload)
-    {
-    }
-
-    Message& operator=(Message& other)
-    {
-        if (this != &other) {
-            _message_type = other._message_type;
-            _payload = other._payload;
-        }
-        return *this;
-    }
-    Message(Message&& other)
-        : _message_type(std::move(other._message_type)),
-          _payload(std::move(other._payload))
-    {
-    }
-
-    Message& operator=(Message&& other)
-    {
-        if (this != &other) {
-            _message_type = std::move(other._message_type);
-            _payload = std::move(other._payload);
-        }
-        return *this;
-    }
     bool is(MessageType message_type);
     const MessageType& get_type() const;
 

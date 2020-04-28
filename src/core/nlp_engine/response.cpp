@@ -1,5 +1,6 @@
 #include "response.hpp"
 
+#include <functional>
 #include <memory>
 #include <string>
 
@@ -18,16 +19,33 @@ namespace Dawn::Core {
 
 TextResponder::TextResponder()
 {
-    _executers.emplace(BaseActionType::Document,
-                       std::make_unique<DocumentBaseAction>());
-    _executers.emplace(BaseActionType::News,
-                       std::make_unique<NewsBaseAction>());
-    _executers.emplace(BaseActionType::PokemonGo,
-                       std::make_unique<PokemonGoBaseAction>());
-    _executers.emplace(BaseActionType::Unknown,
-                       std::make_unique<UnknownBaseAction>());
-    _executers.emplace(BaseActionType::Weather,
-                       std::make_unique<WeatherBaseAction>());
+    _executers.reserve(5);
+
+    _executers.emplace_back(std::make_unique<DocumentBaseAction>());
+    _mapper.emplace(BaseActionType::Document,
+                    std::bind(&ActionExecuter::Execute,
+                              _executers.back().get(),
+                              std::placeholders::_1));
+    _executers.emplace_back(std::make_unique<NewsBaseAction>());
+    _mapper.emplace(BaseActionType::News,
+                    std::bind(&ActionExecuter::Execute,
+                              _executers.back().get(),
+                              std::placeholders::_1));
+    _executers.emplace_back(std::make_unique<PokemonGoBaseAction>());
+    _mapper.emplace(BaseActionType::PokemonGo,
+                    std::bind(&ActionExecuter::Execute,
+                              _executers.back().get(),
+                              std::placeholders::_1));
+    _executers.emplace_back(std::make_unique<UnknownBaseAction>());
+    _mapper.emplace(BaseActionType::Unknown,
+                    std::bind(&ActionExecuter::Execute,
+                              _executers.back().get(),
+                              std::placeholders::_1));
+    _executers.emplace_back(std::make_unique<WeatherBaseAction>());
+    _mapper.emplace(BaseActionType::Weather,
+                    std::bind(&ActionExecuter::Execute,
+                              _executers.back().get(),
+                              std::placeholders::_1));
 }
 
 MessageResponse TextResponder::GenerateResponse(MessageRequest&& request)
@@ -43,7 +61,7 @@ MessageResponse TextResponder::GenerateResponse(MessageRequest&& request)
     else if (request.message.is(MessageType::Location)) {
         intent = BaseActionType::Weather;
     }
-    res.message = _executers[intent]->Execute(std::move(request));
+    res.message = _mapper[intent](std::move(request));
     return res;
 }
 

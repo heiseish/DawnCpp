@@ -41,7 +41,6 @@ bool Application::Initialize()
         DAWN_ERROR(e.what());
         return false;
     }
-    _trader_manager.InitializeTraders();
     DAWN_INFO("App initialized successfully!");
     return true;
 }
@@ -52,7 +51,7 @@ void Application::process_request(MessageRequest msg_req)
     timer_.Start();
     _response_queue->emplace_back(
         _responder.GenerateResponse(std::move(msg_req)));
-    DAWN_INFO("Processing took {} ms", timer_.Record<MilliSeconds>());
+    DAWN_DEBUG("Processing took {} ms", timer_.Record<MilliSeconds>());
 }
 
 void Application::respond(MessageResponse msg_res)
@@ -62,7 +61,7 @@ void Application::respond(MessageResponse msg_res)
     for (const auto& msg : msg_res.message) {
         _platforms.at(msg_res.platform_type)->Send(msg_res.user_info, msg);
     }
-    DAWN_INFO("Responding took {} ms", timer_.Record<MilliSeconds>());
+    DAWN_DEBUG("Responding took {} ms", timer_.Record<MilliSeconds>());
 }
 
 void Application::Start()
@@ -90,12 +89,7 @@ void Application::Start()
         Utility::WorkerThread<MessageResponse, decltype(res_delegate_)>>(
         "RespondingThread", res_delegate_instance_, _response_queue);
     ThreadManager::RespondingThread->CreateThread();
-
-    _trader_manager.ActivateAllTraders();
-    while (true) {
-    }  // main thread idle
+    while (true) {}
 }
-
-void Application::set_up_cron_jobs() {}
 
 }  // namespace Dawn::Core

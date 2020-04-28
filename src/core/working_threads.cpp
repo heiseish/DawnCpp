@@ -8,12 +8,10 @@
 namespace Dawn::Core {
 
 // Global variable containing all the threads currently running
-std::unique_ptr<
-    EventLoop<MessageResponse, SA::delegate<void(MessageResponse)>>>
+std::unique_ptr<EventLoop<MessageResponse, SA::delegate<void(MessageResponse)>>>
     ThreadManager::RespondingThread = nullptr;
 
-std::unique_ptr<
-    EventLoop<MessageRequest, SA::delegate<void(MessageRequest)>>>
+std::unique_ptr<EventLoop<MessageRequest, SA::delegate<void(MessageRequest)>>>
     ThreadManager::ProcessingThread = nullptr;
 
 std::vector<std::thread> ThreadManager::PlatformThreads = {};

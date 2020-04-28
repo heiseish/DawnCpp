@@ -21,12 +21,10 @@ class ThreadManager {
 public:
     // Global variable containing all the threads currently running
     static std::unique_ptr<
-        EventLoop<MessageResponse,
-                              SA::delegate<void(MessageResponse)>>>
+        EventLoop<MessageResponse, SA::delegate<void(MessageResponse)>>>
         RespondingThread;
     static std::unique_ptr<
-        EventLoop<MessageRequest,
-                              SA::delegate<void(MessageRequest)>>>
+        EventLoop<MessageRequest, SA::delegate<void(MessageRequest)>>>
         ProcessingThread;
 
     static std::vector<std::thread> PlatformThreads;

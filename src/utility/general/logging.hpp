@@ -16,15 +16,6 @@
 #include "spdlog/spdlog.h"
 namespace Dawn {
 
-#define __FILENAME__ \
-    (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
-#define _GREEN "\033[0;92m"
-#define _RED "\033[0;91m"
-#define _BROWN "\033[0;93m"
-#define _MAGNETA "\033[0;95m"
-#define _CYAN "\033[0;96m"
-#define _RESET "\033[0m"
-
 #define DAWN_WARN SPDLOG_WARN
 #define DAWN_INFO SPDLOG_INFO
 #define DAWN_DEBUG SPDLOG_DEBUG

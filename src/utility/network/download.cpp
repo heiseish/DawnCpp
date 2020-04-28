@@ -79,7 +79,7 @@ bool Download(const std::string &uri,
             DAWN_ENFORCE(res == CURLE_OK, error);
         }
     }
-    catch (const std::exception& e) {
+    catch (const std::exception &e) {
         DAWN_ERROR("Failed to download file at {} due to {}", uri, e.what());
         return false;
     }

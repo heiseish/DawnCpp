@@ -36,9 +36,7 @@ private:
     std::shared_ptr<Utility::SharedQueue<MessageRequest>> _event_queue;
     std::shared_ptr<Utility::SharedQueue<MessageResponse>> _response_queue;
     std::unordered_map<PlatformType, std::unique_ptr<Platform>> _platforms;
-    std::shared_ptr<Database> _database;
     TextResponder _responder;
-    Trading::TraderManager _trader_manager;
 };
 
 }  // namespace Dawn::Core
