@@ -7,6 +7,7 @@
 #include <string>
 #include <type_traits>
 #include <utility>
+#include <vector>
 
 namespace Dawn::Utility {
 
@@ -25,7 +26,8 @@ using AllStrings = typename std::enable_if<
 // }
 
 template <typename T, typename... Args, typename = AllStrings<Args...>>
-std::string PathJoin(const T& initial, Args&&... args) {
+std::string PathJoin(const T& initial, Args&&... args)
+{
     std::vector<T> segs{std::forward<Args>(args)...};
     fs::path initial_(initial);
     for (auto& v : segs) {

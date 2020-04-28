@@ -14,7 +14,8 @@ TwitterAPI::TwitterAPI(const std::string& access_token_key,
     : _access_token_key(access_token_key),
       _access_token_secret(access_token_secret),
       _consumer_key(consumer_key),
-      _consumer_secret(consumer_secret) {
+      _consumer_secret(consumer_secret)
+{
     _api.getOAuth().setConsumerKey(_consumer_key);
     _api.getOAuth().setConsumerSecret(_consumer_secret);
     _api.getOAuth().setOAuthTokenKey(_access_token_key);
@@ -28,7 +29,9 @@ TwitterAPI::TwitterAPI(const std::string& access_token_key,
  * @return list of tweets of `min(limit, all_tweets.size())` size
  */
 std::vector<Tweet> TwitterAPI::RecentTimelinePosts(
-    const std::string& profile_name, const unsigned long& limit) const {
+    const std::string& profile_name,
+    const unsigned long& limit) const
+{
     std::string result;
     std::vector<Tweet> return_;
     if (_api.timelineUserGet(true, true, limit, profile_name)) {

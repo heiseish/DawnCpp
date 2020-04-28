@@ -19,7 +19,8 @@ template <class ContentType, class DelegateType>
 class WorkerThread {
 public:
     /// Constructor
-    WorkerThread(const char* threadName, DelegateType callback,
+    WorkerThread(const char* threadName,
+                 DelegateType callback,
                  std::shared_ptr<Utility::SharedQueue<ContentType>> queue =
                      std::make_shared<Utility::SharedQueue<ContentType>>());
 
@@ -67,19 +68,23 @@ private:
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
 WorkerThread<ContentType, DelegateType>::WorkerThread(
-    const char* threadName, DelegateType callback,
+    const char* threadName,
+    DelegateType callback,
     std::shared_ptr<Utility::SharedQueue<ContentType>> queue)
     : _callback(callback),
       _thread(nullptr),
       _queue(queue),
       //   _timerExit(false),
-      _thread_name(threadName) {}
+      _thread_name(threadName)
+{
+}
 
 //----------------------------------------------------------------------------
 // ~WorkerThread
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
-WorkerThread<ContentType, DelegateType>::~WorkerThread() {
+WorkerThread<ContentType, DelegateType>::~WorkerThread()
+{
     ExitThread();
 }
 
@@ -87,7 +92,8 @@ WorkerThread<ContentType, DelegateType>::~WorkerThread() {
 // CreateThread
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
-bool WorkerThread<ContentType, DelegateType>::CreateThread() {
+bool WorkerThread<ContentType, DelegateType>::CreateThread()
+{
     if (_thread == nullptr)
         _thread = new std::thread(&WorkerThread::Process, this);
     return true;
@@ -97,7 +103,8 @@ bool WorkerThread<ContentType, DelegateType>::CreateThread() {
 // GetThreadId
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
-std::thread::id WorkerThread<ContentType, DelegateType>::GetThreadId() {
+std::thread::id WorkerThread<ContentType, DelegateType>::GetThreadId()
+{
     DAWN_STRICT_ENFORCE(_thread != nullptr, "Thread not initialized");
     return _thread->get_id();
 }
@@ -106,7 +113,8 @@ std::thread::id WorkerThread<ContentType, DelegateType>::GetThreadId() {
 // GetCurrentThreadId
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
-std::thread::id WorkerThread<ContentType, DelegateType>::GetCurrentThreadId() {
+std::thread::id WorkerThread<ContentType, DelegateType>::GetCurrentThreadId()
+{
     return std::this_thread::get_id();
 }
 
@@ -114,8 +122,10 @@ std::thread::id WorkerThread<ContentType, DelegateType>::GetCurrentThreadId() {
 // ExitThread
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
-void WorkerThread<ContentType, DelegateType>::ExitThread() {
-    if (nullptr == _thread) return;
+void WorkerThread<ContentType, DelegateType>::ExitThread()
+{
+    if (nullptr == _thread)
+        return;
     ThreadMessage<ContentType> thread_msg_;
     thread_msg_.SetType(ThreadMessageType::Exit);
     // Put exit thread message into the queue
@@ -129,7 +139,8 @@ void WorkerThread<ContentType, DelegateType>::ExitThread() {
 // PostMsg
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
-void WorkerThread<ContentType, DelegateType>::PostMsg(ContentType&& data) {
+void WorkerThread<ContentType, DelegateType>::PostMsg(ContentType&& data)
+{
     DAWN_STRICT_ENFORCE(_thread != nullptr, "_thread is not initialized");
     ThreadMessage<ContentType> thread_msg_;
     thread_msg_.SetContent(std::move(data));
@@ -141,7 +152,8 @@ void WorkerThread<ContentType, DelegateType>::PostMsg(ContentType&& data) {
 // TimerThread
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
-void WorkerThread<ContentType, DelegateType>::TimerThread() {
+void WorkerThread<ContentType, DelegateType>::TimerThread()
+{
     // while (!_timerExit) {
     //     // Sleep for 250ms then put a MSG_TIMER message into queue
     //     std::this_thread::sleep_for(std::chrono::milliseconds(250));
@@ -158,7 +170,8 @@ void WorkerThread<ContentType, DelegateType>::TimerThread() {
 // Process
 //----------------------------------------------------------------------------
 template <class ContentType, class DelegateType>
-void WorkerThread<ContentType, DelegateType>::Process() {
+void WorkerThread<ContentType, DelegateType>::Process()
+{
     // _timerExit = false;
     // std::thread timerThread(&WorkerThread::TimerThread, this);
 

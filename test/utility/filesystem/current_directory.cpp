@@ -3,9 +3,11 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class GetCurrentDirectoryTest : public ::testing::Test {};
+class GetCurrentDirectoryTest : public ::testing::Test {
+};
 
-TEST_F(GetCurrentDirectoryTest, GetCurrentDirectory) {
+TEST_F(GetCurrentDirectoryTest, GetCurrentDirectory)
+{
     auto res = GetCurrentWorkingDirectory();
     EXPECT_EQ(res, "/Users/heiseish/Projects/DawnCpp/build");
 }

@@ -13,7 +13,8 @@
 namespace Dawn::Utility {
 #ifdef USE_ABSEIL
 template <class... Args>
-decltype(auto) Split(Args&&... args) {
+decltype(auto) Split(Args&&... args)
+{
     return absl::StrSplit(std::forward<Args>(args)...);
 }
 #else

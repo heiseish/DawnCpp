@@ -11,7 +11,8 @@ protected:
     Timer _timer;
 };
 
-TEST_F(TimerTest, GetPrecisionDuration) {
+TEST_F(TimerTest, GetPrecisionDuration)
+{
     _timer.Start();
     auto elapsed = _timer.Record<MilliSeconds>();
     EXPECT_EQ(elapsed, 0LL);
@@ -26,7 +27,8 @@ TEST_F(TimerTest, GetPrecisionDuration) {
     EXPECT_GT(elapsed, 0LL);
 }
 
-TEST_F(TimerTest, GetMilliSecondsCorrectly) {
+TEST_F(TimerTest, GetMilliSecondsCorrectly)
+{
     _timer.Start();
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
     int64_t elapsed = _timer.Record<MilliSeconds>();
@@ -34,12 +36,13 @@ TEST_F(TimerTest, GetMilliSecondsCorrectly) {
               std::max<int64_t>(elapsed, 200LL) * 5 / 100);
 }
 
-TEST_F(TimerTest, GetMicroSecondsCorrectly) {
+TEST_F(TimerTest, GetMicroSecondsCorrectly)
+{
     _timer.Start();
     std::this_thread::sleep_for(std::chrono::microseconds(200));
     int64_t elapsed = _timer.Record();
     EXPECT_LT(std::abs(elapsed - 200) * 1.0,
-              std::max<int64_t>(elapsed, 200LL) * 50 / 100);
+              std::max<int64_t>(elapsed, 200LL) * 70 / 100);
 }
 
 }  // namespace Dawn::Utility

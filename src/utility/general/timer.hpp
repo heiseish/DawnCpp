@@ -22,7 +22,8 @@ public:
     void Start();
 
     template <typename unit = MicroSeconds>
-    decltype(auto) Record() {
+    decltype(auto) Record()
+    {
         auto end_ = std::chrono::high_resolution_clock::now();
         return std::chrono::duration_cast<unit>(end_ - _start).count();
     }

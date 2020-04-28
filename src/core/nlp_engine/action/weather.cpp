@@ -10,16 +10,20 @@
 namespace Dawn::Core {
 
 WeatherBaseAction::WeatherBaseAction()
-    : _forecast_io(External::ForecastAPI(std::getenv("DARKSKY_KEY"))) {}
+    : _forecast_io(External::ForecastAPI(std::getenv("DARKSKY_KEY")))
+{
+}
 
 std::vector<Message> WeatherBaseAction::Execute([
-    [maybe_unused]] MessageRequest&& request) const {
+    [maybe_unused]] MessageRequest&& request) const
+{
     std::vector<Message> reply;
     External::WeatherDetails weather_details;
     if (request.message.is(MessageType::Location)) {
         weather_details = _forecast_io.CurrentWeather(
             request.message.get<Geography::GeographicCoordinates>());
-    } else
+    }
+    else
         weather_details = _forecast_io.CurrentWeather();
     Message current_weather, summary_weather;
     auto current_weather_str = fmt::format(

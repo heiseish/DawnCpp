@@ -41,7 +41,8 @@ public:
      * @return list of tweets of `min(limit, all_tweets.size())` size
      */
     std::vector<Tweet> RecentTimelinePosts(
-        const std::string& profile_name, const unsigned long& limit = 5) const;
+        const std::string& profile_name,
+        const unsigned long& limit = 5) const;
 
 private:
     mutable twitCurl _api;

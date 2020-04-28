@@ -18,21 +18,27 @@ using namespace rapidjson;
 
 BinanceTrader::BinanceTrader(const BinanceTraderConfig& config) noexcept
     : _config(config),
-      _binance_api(std::getenv("BINANCE_KEY"), std::getenv("BINANCE_SECRET")) {}
+      _binance_api(std::getenv("BINANCE_KEY"), std::getenv("BINANCE_SECRET"))
+{
+}
 
 BinanceTrader::BinanceTrader(BinanceTraderConfig&& config) noexcept
     : _config(std::move(config)),
-      _binance_api(std::getenv("BINANCE_KEY"), std::getenv("BINANCE_SECRET")) {}
+      _binance_api(std::getenv("BINANCE_KEY"), std::getenv("BINANCE_SECRET"))
+{
+}
 
 BinanceTrader::~BinanceTrader() { Stop(); }
 
 void BinanceTrader::Initialize() { DAWN_INFO("BinanceTrader initializing"); }
 
-void BinanceTrader::DownloadHistoricalData() {
+void BinanceTrader::DownloadHistoricalData()
+{
     auto res = _binance_api.GetExchangeInfo();
     Document doc;
     DAWN_STRICT_ENFORCE(!doc.Parse(res.c_str()).HasParseError(),
-                        "Failed to parse json due to {}", doc.GetParseError());
+                        "Failed to parse json due to {}",
+                        doc.GetParseError());
     std::string data_folder_path = absl::GetFlag(FLAGS_data_folder);
     auto exchange_file = Utility::PathJoin(data_folder_path, "exchange.json");
     DAWN_INFO(exchange_file);
@@ -44,11 +50,13 @@ void BinanceTrader::DownloadHistoricalData() {
     fclose(fp);
 }
 
-void BinanceTrader::Start() {
+void BinanceTrader::Start()
+{
     _listen_key = _binance_api.StartUserDataStream();
 }
 
-void BinanceTrader::Stop() {
+void BinanceTrader::Stop()
+{
     _binance_api.CloseUserDataStream(_listen_key);
     Utility::Websocket::StopEventLoop();
 }

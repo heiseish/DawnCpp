@@ -17,14 +17,17 @@
 
 namespace Dawn::External {
 
-std::ostream& operator<<(std::ostream& os, NewsAPIArticle const& m) {
+std::ostream& operator<<(std::ostream& os, NewsAPIArticle const& m)
+{
     return os << "{ title:" << m.title << ", author: " << m.author
               << ", url: " << m.url << ", urlToImage: " << m.urlToImage
               << " } ";
 }
 
 NewsAPI::NewsAPI(const std::string& api_key, const std::string& sources)
-    : _api_key(api_key), _sources(sources) {}
+    : _api_key(api_key), _sources(sources)
+{
+}
 
 NewsAPI::~NewsAPI() {}
 
@@ -33,7 +36,8 @@ NewsAPI::~NewsAPI() {}
  * @arg article article value obtained from json response to be checked
  * @return whether an article entry is not valid
  */
-bool not_valid_article(const rapidjson::Value& article) {
+bool not_valid_article(const rapidjson::Value& article)
+{
     return !article.HasMember("title") || !article["title"].IsString() ||
            !article.HasMember("author") || !article["author"].IsString() ||
            !article.HasMember("url") || !article["url"].IsString() ||
@@ -43,10 +47,12 @@ bool not_valid_article(const rapidjson::Value& article) {
 
 std::vector<NewsAPIArticle> NewsAPI::TopHeadlines(const std::string& query,
                                                   const unsigned long& limit,
-                                                  const bool& shuffle) const {
+                                                  const bool& shuffle) const
+{
     std::string uri =
         fmt::format("https://newsapi.org/v2/top-headlines?sources={}&apiKey={}",
-                    _sources, _api_key);
+                    _sources,
+                    _api_key);
     if (!query.empty()) {  // attach query to the uri
         auto trimmed_query = query;
         Utility::URLParser::EncodeURL(trimmed_query);
@@ -72,16 +78,20 @@ std::vector<NewsAPIArticle> NewsAPI::TopHeadlines(const std::string& query,
     std::optional<rapidjson::Document> res;
     try {
         res = Utility::Retry(drequest_call, dcallback_call);
-    } catch (const std::runtime_error& e) {
+    }
+    catch (const std::runtime_error& e) {
         return {};
     }
-    if (!res) return {};
+    if (!res)
+        return {};
     std::vector<NewsAPIArticle> articles;
     const rapidjson::Value& articles_r = (*res)["articles"];
-    if (!articles_r.IsArray()) return {};
+    if (!articles_r.IsArray())
+        return {};
     for (rapidjson::SizeType i = 0; i < articles_r.Size();
          ++i) {  // rapidjson uses SizeType instead of size_t.
-        if (not_valid_article(articles_r[i])) continue;
+        if (not_valid_article(articles_r[i]))
+            continue;
         articles.emplace_back(articles_r[i]["title"].GetString(),
                               articles_r[i]["author"].GetString(),
                               articles_r[i]["url"].GetString(),

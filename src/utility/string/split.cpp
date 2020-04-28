@@ -3,8 +3,8 @@
 
 namespace Dawn::Utility {
 
-std::vector<std::string> Split(const std::string& str,
-                               const std::string& delim) {
+std::vector<std::string> Split(const std::string& str, const std::string& delim)
+{
     auto occurences =
         Library::Algorithm::KMPAlgorithm::OccurrenceIndices(str, delim);
     std::vector<std::string> result_{""};

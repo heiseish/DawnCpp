@@ -8,7 +8,8 @@
 
 namespace Dawn::Trading {
 
-class BinanceTraderConfig : public TraderConfig {};
+class BinanceTraderConfig : public TraderConfig {
+};
 
 class BinanceTrader : public Trader {
 public:

@@ -20,12 +20,14 @@ namespace Dawn::Core {
 TelegramPlatform::TelegramPlatform()
     : _sender(std::getenv("TELEGRAM_TOKEN")),
       _listener(_sender),
-      _bot_name(*(_sender.get_me()->username)) {
+      _bot_name(*(_sender.get_me()->username))
+{
 #endif
     DAWN_INFO("Telegram bot name {}", _bot_name);
 }
 
-void TelegramPlatform::RegisterHooks() {
+void TelegramPlatform::RegisterHooks()
+{
     DAWN_INFO("Telegram Bot registering hook...");
 #ifdef USE_LIBTELEGRAM
     _listener.set_callback_message(
@@ -49,7 +51,8 @@ void TelegramPlatform::RegisterHooks() {
 
             if (message.text) {
                 msg_req.message.set<std::string>(MessageType::Text, text_msg_);
-            } else if (message.location) {
+            }
+            else if (message.location) {
                 msg_req.message.set<Geography::GeographicCoordinates>(
                     MessageType::Location,
                     {message.location->latitude, message.location->longitude});
@@ -60,7 +63,8 @@ void TelegramPlatform::RegisterHooks() {
 #endif
 }
 
-void TelegramPlatform::Send(const UserInfo& user_info, const Message& message) {
+void TelegramPlatform::Send(const UserInfo& user_info, const Message& message)
+{
     try {
         decltype(auto) res = message.get_type();
         Utility::Timer timer_;
@@ -75,22 +79,31 @@ void TelegramPlatform::Send(const UserInfo& user_info, const Message& message) {
             case MessageType::Image: {
                 telegram::types::file image_file_;
                 image_file_.file_id = message.get<std::string>();
-                _sender.send_photo(user_info.user_id, std::move(image_file_),
-                                   {}, false, user_info.message_id);
+                _sender.send_photo(user_info.user_id,
+                                   std::move(image_file_),
+                                   {},
+                                   false,
+                                   user_info.message_id);
                 break;
             }
             case MessageType::Audio: {
                 telegram::types::audio audo_file_;
                 audo_file_.file_id = message.get<std::string>();
-                _sender.send_audio(user_info.user_id, std::move(audo_file_), {},
-                                   false, user_info.message_id);
+                _sender.send_audio(user_info.user_id,
+                                   std::move(audo_file_),
+                                   {},
+                                   false,
+                                   user_info.message_id);
                 break;
             }
             case MessageType::Video: {
                 telegram::types::video vide_file_;
                 vide_file_.file_id = message.get<std::string>();
-                _sender.send_video(user_info.user_id, std::move(vide_file_), {},
-                                   false, user_info.message_id);
+                _sender.send_video(user_info.user_id,
+                                   std::move(vide_file_),
+                                   {},
+                                   false,
+                                   user_info.message_id);
                 break;
             }
             case MessageType::Location: {
@@ -98,14 +111,18 @@ void TelegramPlatform::Send(const UserInfo& user_info, const Message& message) {
                 telegram::types::location location_;
                 location_.latitude = res.latitude;
                 location_.longitude = res.longitude;
-                _sender.send_location(user_info.user_id, std::move(location_),
-                                      {}, false, user_info.message_id);
+                _sender.send_location(user_info.user_id,
+                                      std::move(location_),
+                                      {},
+                                      false,
+                                      user_info.message_id);
             }
 #endif
         }
         DAWN_INFO("[ Telegram ] Send message: {} ms",
                   timer_.Record<MicroSeconds>());
-    } catch (const std::runtime_error& e) {
+    }
+    catch (const std::runtime_error& e) {
         DAWN_ERROR(e.what());
     }
 }

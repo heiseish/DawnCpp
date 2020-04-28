@@ -11,7 +11,8 @@
 
 namespace Dawn::Utility {
 
-std::string GetCurrentWorkingDirectory() {
+std::string GetCurrentWorkingDirectory()
+{
     char cCurrentPath[FILENAME_MAX];
     DAWN_ENFORCE(GetCurrentDir(cCurrentPath, sizeof(cCurrentPath)),
                  "Cannot get current working dir");

@@ -5,17 +5,21 @@
 
 namespace Dawn::Utility {
 
-void URLParser::EncodeURL(std::string& uri) {
+void URLParser::EncodeURL(std::string& uri)
+{
     uri = ReplaceAll(uri, " ", "%20");
 }
 
-size_t write_data([[maybe_unused]] void* buffer, size_t size, size_t nmemb,
-                  [[maybe_unused]] void* userp) {
+size_t write_data([[maybe_unused]] void* buffer,
+                  size_t size,
+                  size_t nmemb,
+                  [[maybe_unused]] void* userp)
+{
     return size * nmemb;
 }
 
-std::string URLParser::GetFinalRedirectedUrl(const std::string& uri,
-                                             CURL* curl) {
+std::string URLParser::GetFinalRedirectedUrl(const std::string& uri, CURL* curl)
+{
     bool owned_curl = false;
     if (curl == nullptr) {
         curl = curl_easy_init();
@@ -35,7 +39,8 @@ std::string URLParser::GetFinalRedirectedUrl(const std::string& uri,
     char* final_url = NULL;
     curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &final_url);
     // Close handle
-    if (owned_curl) curl_easy_cleanup(curl);
+    if (owned_curl)
+        curl_easy_cleanup(curl);
     return std::string(final_url);
 }
 

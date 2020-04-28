@@ -5,7 +5,8 @@
 
 namespace Dawn::Trading {
 
-class TraderConfig {};
+class TraderConfig {
+};
 
 class Trader {
 public:

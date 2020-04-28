@@ -16,11 +16,13 @@ namespace Dawn::Core {
 class Platform {
 public:
     virtual ~Platform() = default;
-    void RegisterDatabase(std::shared_ptr<Database> database) {
+    void RegisterDatabase(std::shared_ptr<Database> database)
+    {
         _database = database;
     }
     void RegisterEventQueue(
-        std::shared_ptr<Utility::SharedQueue<MessageRequest>> event_queue) {
+        std::shared_ptr<Utility::SharedQueue<MessageRequest>> event_queue)
+    {
         _event_queue = event_queue;
     }
     virtual void RegisterHooks() = 0;

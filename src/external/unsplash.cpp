@@ -11,15 +11,20 @@
 namespace Dawn::External {
 
 UnsplashAPI::UnsplashAPI() : _curl(curl_easy_init()) {}
-UnsplashAPI::~UnsplashAPI() {
+UnsplashAPI::~UnsplashAPI()
+{
     if (_curl != nullptr) {
         curl_easy_cleanup(_curl);
     }
 }
 
-std::string UnsplashAPI::GetRandomUnsplashPhoto() const {
+std::string UnsplashAPI::GetRandomUnsplashPhoto() const
+{
     std::vector<std::string_view> out;
-    std::sample(_topics.begin(), _topics.end(), std::back_inserter(out), 1,
+    std::sample(_topics.begin(),
+                _topics.end(),
+                std::back_inserter(out),
+                1,
                 Utility::GetRandomGenerator());
     const std::string uri =
         fmt::format("https://source.unsplash.com/1600x900/?{}", out.back());

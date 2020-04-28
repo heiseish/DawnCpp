@@ -13,14 +13,17 @@ namespace Dawn::Core {
  * Compute the intent of text in O((text length + sum(intent lenth) )* num
  * intent)
  */
-BaseActionType TextClassifierEngine::classify(const std::string& text) {
+BaseActionType TextClassifierEngine::classify(const std::string& text)
+{
     auto text_cp = text;
     Utility::ToLower(text_cp);
     if (Algo::KMPAlgorithm::Contains(text_cp.c_str(), "news")) {
         return BaseActionType::News;
-    } else if (Algo::KMPAlgorithm::Contains(text_cp.c_str(), "pokemon go")) {
+    }
+    else if (Algo::KMPAlgorithm::Contains(text_cp.c_str(), "pokemon go")) {
         return BaseActionType::PokemonGo;
-    } else if (Algo::KMPAlgorithm::Contains(text_cp.c_str(), "weather")) {
+    }
+    else if (Algo::KMPAlgorithm::Contains(text_cp.c_str(), "weather")) {
         return BaseActionType::Weather;
     }
     return BaseActionType::Unknown;

@@ -15,7 +15,9 @@ public:
         : autosuper(true),
           _minperiod(1),
           _minperiods(1, _minperiod),
-          Inputs({"close"}) {}
+          Inputs({"close"})
+    {
+    }
     virtual TALib() = 0;
 
 protected:

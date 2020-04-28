@@ -33,24 +33,30 @@ namespace Dawn {
 void InitLogger();
 
 template <typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
+{
     os << "[";
-    for (auto& e : v) os << e << ',';
+    for (auto& e : v)
+        os << e << ',';
     os << "]\n";
     return os;
 }
 
 template <typename T>
-std::ostream& operator<<(std::ostream& os, const std::unordered_set<T>& v) {
+std::ostream& operator<<(std::ostream& os, const std::unordered_set<T>& v)
+{
     os << "[";
-    for (auto& e : v) os << e << ',';
+    for (auto& e : v)
+        os << e << ',';
     os << "]\n";
     return os;
 }
 template <typename T, typename K>
-std::ostream& operator<<(std::ostream& os, const std::unordered_map<T, K>& v) {
+std::ostream& operator<<(std::ostream& os, const std::unordered_map<T, K>& v)
+{
     os << "[";
-    for (auto& e : v) os << e.first << ':' << e.second << ',';
+    for (auto& e : v)
+        os << e.first << ':' << e.second << ',';
     os << "]\n";
     return os;
 }
@@ -63,9 +69,10 @@ std::ostream& operator<<(std::ostream& os, const std::unordered_map<T, K>& v) {
         }                            \
     } while (0)
 
-#define DAWN_STRICT_ENFORCE(x, ...)                                   \
-    do                                                                \
-        if (!(x)) throw std::runtime_error(fmt::format(__VA_ARGS__)); \
+#define DAWN_STRICT_ENFORCE(x, ...)                             \
+    do                                                          \
+        if (!(x))                                               \
+            throw std::runtime_error(fmt::format(__VA_ARGS__)); \
     while (0)
 
 #define DAWN_CHECK(x, ...)           \

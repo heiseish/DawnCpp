@@ -39,7 +39,8 @@ namespace Dawn::Library::Algorithm {
  * @return list if indices where string s starts in text t
  */
 std::vector<unsigned int> KMPAlgorithm::KMP(const std::string_view& text,
-                                            const std::string_view& pattern) {
+                                            const std::string_view& pattern)
+{
     int n = static_cast<int>(text.length()),
         m = static_cast<int>(pattern.length());
     std::vector<int> pi(std::max(n, m) + 1);
@@ -47,14 +48,16 @@ std::vector<unsigned int> KMPAlgorithm::KMP(const std::string_view& text,
     int i = 0, j = -1;
     pi[0] = -1;
     while (i < m) {
-        while (j >= 0 && pattern[i] != pattern[j]) j = pi[j];
+        while (j >= 0 && pattern[i] != pattern[j])
+            j = pi[j];
         ++i;
         ++j;
         pi[i] = j;
     }
     i = 0, j = 0;
     while (i < n) {
-        while (j >= 0 && text[i] != pattern[j]) j = pi[j];
+        while (j >= 0 && text[i] != pattern[j])
+            j = pi[j];
         ++i;
         ++j;
         if (j == m) {
@@ -66,26 +69,30 @@ std::vector<unsigned int> KMPAlgorithm::KMP(const std::string_view& text,
 }
 
 std::vector<unsigned int> KMPAlgorithm::OccurrenceIndices(const char* text,
-                                                          const char* pattern) {
+                                                          const char* pattern)
+{
     std::string_view first_sv(text, strlen(text));
     std::string_view second_sv(pattern, strlen(pattern));
     return KMP(first_sv, second_sv);
 }
 std::vector<unsigned int> KMPAlgorithm::OccurrenceIndices(
-    const std::string& text, const std::string& pattern) {
+    const std::string& text,
+    const std::string& pattern)
+{
     std::string_view first_sv(text.c_str(), text.length());
     std::string_view second_sv(pattern.c_str(), pattern.length());
     return KMP(first_sv, second_sv);
 }
 
-bool KMPAlgorithm::Contains(const char* text, const char* pattern) {
+bool KMPAlgorithm::Contains(const char* text, const char* pattern)
+{
     std::string_view first_sv(text, strlen(text));
     std::string_view second_sv(pattern, strlen(pattern));
     auto res = KMP(first_sv, second_sv);
     return !res.empty();
 }
-bool KMPAlgorithm::Contains(const std::string& text,
-                            const std::string& pattern) {
+bool KMPAlgorithm::Contains(const std::string& text, const std::string& pattern)
+{
     std::string_view first_sv(text.c_str(), text.length());
     std::string_view second_sv(pattern.c_str(), pattern.length());
     auto res = KMP(first_sv, second_sv);

@@ -19,7 +19,8 @@ class WebsocketTest : public ::testing::Test {
 protected:
     map<long, map<std::string, double> > _klinesCache;
     std::unique_ptr<External::BinanceAPI> binance_api_;
-    virtual void SetUp() {
+    virtual void SetUp()
+    {
         GTEST_SKIP();
         binance_api_ = std::make_unique<External::BinanceAPI>(
             std::getenv("BINANCE_KEY"), std::getenv("BINANCE_SECRET"));
@@ -30,20 +31,27 @@ protected:
 
     //---------------
 public:
-    void print_klinesCache() {
+    void print_klinesCache()
+    {
         auto result_ = fmt::format("\n==========================\n");
         for (auto& v : _klinesCache) {
             auto start_of_candle = v.first;
             auto candle_obj = v.second;
-            result_ = fmt::format(
-                "{}s: {}, o: {}, h: {}, l: {}, c: {}, v: {}\n", result_,
-                start_of_candle, candle_obj["o"], candle_obj["h"],
-                candle_obj["l"], candle_obj["c"], candle_obj["v"]);
+            result_ =
+                fmt::format("{}s: {}, o: {}, h: {}, l: {}, c: {}, v: {}\n",
+                            result_,
+                            start_of_candle,
+                            candle_obj["o"],
+                            candle_obj["h"],
+                            candle_obj["l"],
+                            candle_obj["c"],
+                            candle_obj["v"]);
         }
         DAWN_INFO(result_);
     }
 
-    void ws_klines_onData(const rapidjson::Document& json_result) {
+    void ws_klines_onData(const rapidjson::Document& json_result)
+    {
         long start_of_candle = json_result["k"]["t"].GetInt64();
         _klinesCache[start_of_candle]["o"] = json_result["k"]["o"].GetDouble();
         _klinesCache[start_of_candle]["h"] = json_result["k"]["h"].GetDouble();
@@ -54,14 +62,16 @@ public:
     }
 };
 
-TEST_F(WebsocketTest, BinanceStreaming) {
+TEST_F(WebsocketTest, BinanceStreaming)
+{
     SA::delegate<void(const rapidjson::Document&)> req_delegate_;
     auto req_delegate_instance_ =
         decltype(req_delegate_)::create<WebsocketTest,
                                         &WebsocketTest::ws_klines_onData>(this);
     const std::string agg_trade = "/ws/bnbbtc@aggTrade";
     Websocket::ConnectEndpoint(
-        req_delegate_instance_, agg_trade.c_str(),
+        req_delegate_instance_,
+        agg_trade.c_str(),
         std::string(External::BinanceAPI::WebsocketHost).c_str(),
         External::BinanceAPI::WebsocketPort);
     std::thread t(&Websocket::EnterEventLoop);

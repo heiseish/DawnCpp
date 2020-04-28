@@ -19,8 +19,10 @@ namespace Dawn::Utility {
  * @returns value that `func` returns
  */
 template <class function_type, class callback_func>
-decltype(auto) Retry(function_type func, callback_func callback,
-                     const unsigned int& retry_times = 7) {
+decltype(auto) Retry(function_type func,
+                     callback_func callback,
+                     const unsigned int& retry_times = 7)
+{
     for (unsigned int _ = 0; _ < retry_times; ++_) {
         decltype(auto) res = func();
         if (callback(res)) {

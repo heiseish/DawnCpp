@@ -19,8 +19,12 @@ public:
 
 private:
     CURL* _curl = nullptr;
-    const std::vector<std::string_view> _topics{
-        "beach", "funny", "city", "sea", "rainforest", "starrynight"};
+    const std::vector<std::string_view> _topics{"beach",
+                                                "funny",
+                                                "city",
+                                                "sea",
+                                                "rainforest",
+                                                "starrynight"};
 };
 
 }  // namespace Dawn::External

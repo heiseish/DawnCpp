@@ -14,7 +14,8 @@
 
 namespace Dawn::Core {
 
-void dawn_signal_handler(int signal_num) {
+void dawn_signal_handler(int signal_num)
+{
     DAWN_INFO("Gracefully shutting down with signal ({})", signal_num);
     ThreadManager::StopAllThreads();
     exit(signal_num);
@@ -22,7 +23,8 @@ void dawn_signal_handler(int signal_num) {
 
 Application::Application() {}
 Application::~Application() {}
-bool Application::Initialize() {
+bool Application::Initialize()
+{
     try {
         _event_queue = std::make_shared<Utility::SharedQueue<MessageRequest>>();
         _response_queue =
@@ -34,7 +36,8 @@ bool Application::Initialize() {
         for (const auto& plt : _platforms) {
             plt.second->RegisterEventQueue(_event_queue);
         }
-    } catch (const std::exception& e) {
+    }
+    catch (const std::exception& e) {
         DAWN_ERROR(e.what());
         return false;
     }
@@ -43,7 +46,8 @@ bool Application::Initialize() {
     return true;
 }
 
-void Application::process_request(MessageRequest msg_req) {
+void Application::process_request(MessageRequest msg_req)
+{
     Utility::Timer timer_;
     timer_.Start();
     _response_queue->emplace_back(
@@ -51,7 +55,8 @@ void Application::process_request(MessageRequest msg_req) {
     DAWN_INFO("Processing took {} ms", timer_.Record<MilliSeconds>());
 }
 
-void Application::respond(MessageResponse msg_res) {
+void Application::respond(MessageResponse msg_res)
+{
     Utility::Timer timer_;
     timer_.Start();
     for (const auto& msg : msg_res.message) {
@@ -60,7 +65,8 @@ void Application::respond(MessageResponse msg_res) {
     DAWN_INFO("Responding took {} ms", timer_.Record<MilliSeconds>());
 }
 
-void Application::Start() {
+void Application::Start()
+{
     for (const auto& platform : _platforms) {
         ThreadManager::PlatformThreads.emplace_back(&Platform::RegisterHooks,
                                                     platform.second.get());

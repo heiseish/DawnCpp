@@ -16,10 +16,12 @@ ForecastAPI::ForecastAPI(const std::string& api_key) : _api_key(api_key) {}
 ForecastAPI::~ForecastAPI() {}
 
 WeatherDetails ForecastAPI::CurrentWeather(
-    const Geography::GeographicCoordinates& location) const {
-    std::string uri =
-        fmt::format("https://api.darksky.net/forecast/{}/{},{}", _api_key,
-                    location.latitude, location.longitude);
+    const Geography::GeographicCoordinates& location) const
+{
+    std::string uri = fmt::format("https://api.darksky.net/forecast/{}/{},{}",
+                                  _api_key,
+                                  location.latitude,
+                                  location.longitude);
     // request function delegate
     SA::delegate<std::optional<rapidjson::Document>()> func_delegate;
     decltype(auto) request_call =
@@ -43,10 +45,12 @@ WeatherDetails ForecastAPI::CurrentWeather(
     std::optional<rapidjson::Document> doc;
     try {
         doc = Utility::Retry(drequest_call, dcallback_call);
-    } catch (const std::runtime_error& e) {
+    }
+    catch (const std::runtime_error& e) {
         return {};
     }
-    if (!doc) return {};
+    if (!doc)
+        return {};
     std::string currently_summary = (*doc)["currently"]["summary"].GetString();
     Utility::ToLower(currently_summary);
     std::string hourly_summary = (*doc)["hourly"]["summary"].GetString();
@@ -58,7 +62,8 @@ WeatherDetails ForecastAPI::CurrentWeather(
                                  std::move(currently_summary));
     result.summary =
         fmt::format("In general, it is {} And this week there is {}",
-                    std::move(hourly_summary), std::move(daily_summary));
+                    std::move(hourly_summary),
+                    std::move(daily_summary));
     return result;
 }
 

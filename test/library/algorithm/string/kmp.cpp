@@ -3,9 +3,11 @@
 
 namespace Dawn::Library::Algorithm {
 
-class KmpAlgorithmTest : public ::testing::Test {};
+class KmpAlgorithmTest : public ::testing::Test {
+};
 
-TEST_F(KmpAlgorithmTest, CheckASCIIContainsCorrectly) {
+TEST_F(KmpAlgorithmTest, CheckASCIIContainsCorrectly)
+{
     const char* text = "have this child";
     const char* pattern = "this";
     EXPECT_TRUE(KMPAlgorithm::Contains(text, pattern));
@@ -13,7 +15,8 @@ TEST_F(KmpAlgorithmTest, CheckASCIIContainsCorrectly) {
     EXPECT_FALSE(KMPAlgorithm::Contains(text, "thIS"));
 }
 
-TEST_F(KmpAlgorithmTest, CheckUTF8ContainsCorrectly) {
+TEST_F(KmpAlgorithmTest, CheckUTF8ContainsCorrectly)
+{
     const char* text = "một ngày mới";
     const char* pattern = "ngày";
     EXPECT_TRUE(KMPAlgorithm::Contains(text, pattern));
@@ -21,7 +24,8 @@ TEST_F(KmpAlgorithmTest, CheckUTF8ContainsCorrectly) {
     EXPECT_FALSE(KMPAlgorithm::Contains(text, "Ngày"));
 }
 
-TEST_F(KmpAlgorithmTest, CheckOccurenceIndciesCorrectly) {
+TEST_F(KmpAlgorithmTest, CheckOccurenceIndciesCorrectly)
+{
     const char* text = "news about Donald trump news";
     const char* pattern = "news";
     auto res = KMPAlgorithm::OccurrenceIndices(text, pattern);

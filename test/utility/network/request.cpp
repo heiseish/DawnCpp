@@ -9,7 +9,8 @@ protected:
     virtual void SetUp() { GTEST_SKIP(); }
 };
 
-TEST_F(NetworkRequestTest, GetRequestSuccessfully) {
+TEST_F(NetworkRequestTest, GetRequestSuccessfully)
+{
     std::string uri = "http://date.jsontest.com/";
     auto res = _request.GetRequest(uri);
     EXPECT_TRUE(res);
@@ -18,7 +19,8 @@ TEST_F(NetworkRequestTest, GetRequestSuccessfully) {
     EXPECT_TRUE(res);
 }
 
-TEST_F(NetworkRequestTest, PostRequestSuccessfully) {
+TEST_F(NetworkRequestTest, PostRequestSuccessfully)
+{
     std::string uri = "http://date.jsontest.com/";
     auto res = _request.GetRequest(uri);
     EXPECT_TRUE(res);

@@ -13,10 +13,13 @@ namespace Dawn::External {
 //---------------------------------
 BinanceAPI::BinanceAPI(const std::string &api_key,
                        const std::string &secret_key)
-    : _api_key(api_key), _secret_key(secret_key), _curl(curl_easy_init()) {}
+    : _api_key(api_key), _secret_key(secret_key), _curl(curl_easy_init())
+{
+}
 
 BinanceAPI::~BinanceAPI() { CleanUp(); }
-void BinanceAPI::CleanUp() {
+void BinanceAPI::CleanUp()
+{
     curl_easy_cleanup(_curl);
     curl_global_cleanup();
 }
@@ -24,7 +27,8 @@ void BinanceAPI::CleanUp() {
 //------------------
 // GET api/v1/exchangeInfo
 //------------------
-std::string BinanceAPI::GetExchangeInfo() {
+std::string BinanceAPI::GetExchangeInfo()
+{
     DAWN_INFO("<BinanceAPI::get_exchangeInfo>");
     auto url = fmt::format("{}/api/v1/exchangeInfo", BinanceAPI::BinanceHost);
     return CurlAPI(url);
@@ -32,7 +36,8 @@ std::string BinanceAPI::GetExchangeInfo() {
 //------------------
 // GET /api/v1/time
 //------------
-std::string BinanceAPI::GetServerTime() {
+std::string BinanceAPI::GetServerTime()
+{
     DAWN_INFO("<BinanceAPI::get_serverTime>");
     auto url = fmt::format("{}/api/v1/time", BinanceAPI::BinanceHost);
     return CurlAPI(url);
@@ -43,7 +48,8 @@ std::string BinanceAPI::GetServerTime() {
 /*
         GET /api/v1/ticker/allPrices
 */
-std::string BinanceAPI::GetAllPrices() {
+std::string BinanceAPI::GetAllPrices()
+{
     DAWN_INFO("<BinanceAPI::get_allPrices>");
     auto url =
         fmt::format("{}/api/v1/ticker/allPrices", BinanceAPI::BinanceHost);
@@ -52,12 +58,14 @@ std::string BinanceAPI::GetAllPrices() {
 
 //----------
 // Get Single Pair's Price
-double BinanceAPI::GetPrice(const std::string_view &symbol) {
+double BinanceAPI::GetPrice(const std::string_view &symbol)
+{
     DAWN_INFO("<BinanceAPI::get_price>");
     std::string str_symbol(symbol);
     Utility::ToUpper(str_symbol);
     auto alltickers = GetAllPrices();
-    if (alltickers.empty()) return 0.0;
+    if (alltickers.empty())
+        return 0.0;
     rapidjson::Document d;
     if (d.Parse(alltickers.c_str()).HasParseError()) {
         DAWN_ERROR("Failed to parse json response");
@@ -79,7 +87,8 @@ double BinanceAPI::GetPrice(const std::string_view &symbol) {
 
 */
 
-std::string BinanceAPI::GetAllBookTickers() {
+std::string BinanceAPI::GetAllBookTickers()
+{
     DAWN_INFO("<BinanceAPI::GetAllBookTickers>");
     auto url =
         fmt::format("{}/api/v1/ticker/allBookTickers", BinanceAPI::BinanceHost);
@@ -87,12 +96,14 @@ std::string BinanceAPI::GetAllBookTickers() {
 }
 
 //--------------
-std::string BinanceAPI::GetBookTicker(const std::string_view &symbol) {
+std::string BinanceAPI::GetBookTicker(const std::string_view &symbol)
+{
     DAWN_INFO("<BinanceAPI::GetBookTicker>");
     std::string str_symbol(symbol);
     Utility::ToUpper(str_symbol);
     auto alltickers = GetAllBookTickers();
-    if (alltickers.empty()) return {};
+    if (alltickers.empty())
+        return {};
     rapidjson::Document d;
     if (d.Parse(alltickers.c_str()).HasParseError()) {
         DAWN_ERROR("Failed to parse json response");
@@ -119,10 +130,13 @@ limit	INT		NO		Default 100; max 100.
 */
 
 std::string BinanceAPI::GetDepth(const std::string_view &symbol,
-                                 const int &limit) {
+                                 const int &limit)
+{
     DAWN_INFO("<BinanceAPI::get_depth>");
     auto url = fmt::format("{}/api/v1/depth?symbol={}&limit={}",
-                           BinanceAPI::BinanceHost, symbol, limit);
+                           BinanceAPI::BinanceHost,
+                           symbol,
+                           limit);
     return CurlAPI(url);
 }
 
@@ -142,16 +156,20 @@ until INCLUSIVE. limit		INT	NO		Default 500; max 500.
 */
 
 std::string BinanceAPI::GetAggTrades(const std::string_view &symbol,
-                                     const int &fromId, const time_t &startTime,
-                                     const time_t &endTime, const int &limit) {
+                                     const int &fromId,
+                                     const time_t &startTime,
+                                     const time_t &endTime,
+                                     const int &limit)
+{
     DAWN_INFO("<BinanceAPI::get_aggTrades>");
-    auto url = fmt::format("{}/api/v1/aggTrades?symbol={}",
-                           BinanceAPI::BinanceHost, symbol);
+    auto url = fmt::format(
+        "{}/api/v1/aggTrades?symbol={}", BinanceAPI::BinanceHost, symbol);
     // return CurlAPI(url);
     if (startTime != 0 && endTime != 0) {
         url =
             fmt::format("{}&startTime={}&endTime={}", url, startTime, endTime);
-    } else {
+    }
+    else {
         url = fmt::format("{}&fromId={}&limit={}", url, fromId, limit);
     }
     DAWN_INFO("<BinanceAPI::get_aggTrades> url = |{}|", url);
@@ -164,10 +182,11 @@ std::string BinanceAPI::GetAggTrades(const std::string_view &symbol,
 Name	Type	Mandatory	Description
 symbol	std::STRING	YES
 */
-std::string BinanceAPI::Get24hr(const std::string_view &symbol) {
+std::string BinanceAPI::Get24hr(const std::string_view &symbol)
+{
     DAWN_INFO("<BinanceAPI::get_24hr>");
-    auto url = fmt::format("{}/api/v1/ticker/24hr?symbol={}",
-                           BinanceAPI::BinanceHost, symbol);
+    auto url = fmt::format(
+        "{}/api/v1/ticker/24hr?symbol={}", BinanceAPI::BinanceHost, symbol);
 
     DAWN_INFO("<BinanceAPI::get_24hr> url = |{}|", url);
     return CurlAPI(url);
@@ -190,15 +209,20 @@ endTime		LONG	NO
 
 std::string BinanceAPI::GetKLines(const std::string_view &symbol,
                                   const std::string_view &interval,
-                                  const int &limit, const time_t &startTime,
-                                  const time_t &endTime) {
+                                  const int &limit,
+                                  const time_t &startTime,
+                                  const time_t &endTime)
+{
     DAWN_INFO("<BinanceAPI::get_klines>");
     auto url = fmt::format("{}/api/v1/klines?symbol={}&interval={}",
-                           BinanceAPI::BinanceHost, symbol, interval);
+                           BinanceAPI::BinanceHost,
+                           symbol,
+                           interval);
     if (startTime > 0 && endTime > 0) {
         url =
             fmt::format("{}&startTime={}&endTime={}", url, startTime, endTime);
-    } else if (limit > 0) {
+    }
+    else if (limit > 0) {
         url = fmt::format("{}&limit={}", url, limit);
     }
     DAWN_INFO("<BinanceAPI::get_klines> url = |{}|", url);
@@ -216,7 +240,8 @@ recvWindow	LONG	NO
 timestamp	LONG	YES
 */
 
-std::string BinanceAPI::GetAccount(const long &recvWindow) {
+std::string BinanceAPI::GetAccount(const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::get_account>");
     if (_api_key.empty() || _secret_key.empty()) {
         DAWN_ERROR("API Key and Secret Key has not been set.");
@@ -252,8 +277,10 @@ trades. recvWindow	LONG	NO timestamp	LONG	YES
 */
 
 std::string BinanceAPI::GetMyTrades(const std::string_view &symbol,
-                                    const int &limit, const long &fromId,
-                                    const long &recvWindow) {
+                                    const int &limit,
+                                    const long &fromId,
+                                    const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::get_myTrades>");
     if (_api_key.empty() || _secret_key.empty()) {
         DAWN_ERROR("API Key and Secret Key has not been set.");
@@ -272,8 +299,8 @@ std::string BinanceAPI::GetMyTrades(const std::string_view &symbol,
     if (recvWindow > 0) {
         querystring = fmt::format("{}&recvWindow={}", querystring, recvWindow);
     }
-    querystring = fmt::format("{}&timestamp={}", querystring,
-                              Utility::GetCurrentEpochMs());
+    querystring = fmt::format(
+        "{}&timestamp={}", querystring, Utility::GetCurrentEpochMs());
     std::string signature =
         Utility::hmac_sha256(_secret_key.c_str(), querystring.c_str());
     url = fmt::format("{}{}&signature={}", url, querystring, signature);
@@ -295,7 +322,8 @@ timestamp	LONG	YES
 */
 
 std::string BinanceAPI::GetOpenOrders(const std::string_view &symbol,
-                                      const long &recvWindow) {
+                                      const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::get_openOrders>");
     if (_api_key.empty() || _secret_key.empty()) {
         DAWN_ERROR("API Key and Secret Key has not been set.");
@@ -308,8 +336,8 @@ std::string BinanceAPI::GetOpenOrders(const std::string_view &symbol,
     if (recvWindow > 0) {
         querystring = fmt::format("{}&recvWindow={}", querystring, recvWindow);
     }
-    querystring = fmt::format("{}&timestamp={}", querystring,
-                              Utility::GetCurrentEpochMs());
+    querystring = fmt::format(
+        "{}&timestamp={}", querystring, Utility::GetCurrentEpochMs());
     std::string signature =
         Utility::hmac_sha256(_secret_key.c_str(), querystring.c_str());
     querystring = fmt::format("{}&signature={}", querystring, signature);
@@ -335,8 +363,10 @@ timestamp	LONG	YES
 */
 
 std::string BinanceAPI::GetAllOrders(const std::string_view &symbol,
-                                     const long &orderId, const int &limit,
-                                     const long &recvWindow) {
+                                     const long &orderId,
+                                     const int &limit,
+                                     const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::get_allOrders>");
     if (_api_key.empty() || _secret_key.empty()) {
         DAWN_ERROR("API Key and Secret Key has not been set.");
@@ -387,12 +417,17 @@ icebergOrders recvWindow			LONG		NO timestamp
 LONG		YES
 */
 
-std::string BinanceAPI::SendOrder(
-    const std::string_view &symbol, const std::string_view &side,
-    const std::string_view &type, const std::string_view &timeInForce,
-    const double &quantity, const double &price,
-    const std::string_view &newClientOrderId, const double &stopPrice,
-    const double &icebergQty, const long &recvWindow) {
+std::string BinanceAPI::SendOrder(const std::string_view &symbol,
+                                  const std::string_view &side,
+                                  const std::string_view &type,
+                                  const std::string_view &timeInForce,
+                                  const double &quantity,
+                                  const double &price,
+                                  const std::string_view &newClientOrderId,
+                                  const double &stopPrice,
+                                  const double &icebergQty,
+                                  const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::send_order>");
     if (_api_key.empty() || _secret_key.empty()) {
         DAWN_ERROR("API Key and Secret Key has not been set.");
@@ -434,7 +469,8 @@ std::string BinanceAPI::SendOrder(
     extra_http_header.emplace_back(std::move(header_chunk));
 
     DAWN_INFO("<BinanceAPI::send_order> url = |{}|, post_data = |{}|",
-              url.c_str(), post_data.c_str());
+              url.c_str(),
+              post_data.c_str());
 
     return CurlAPIWithHeader(url, extra_http_header, post_data, action);
 }
@@ -455,7 +491,8 @@ timestamp			LONG	YES
 std::string BinanceAPI::GetOrder(const std::string_view &symbol,
                                  const long &orderId,
                                  const std::string_view &origClientOrderId,
-                                 const long &recvWindow) {
+                                 const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::GetOrder>");
     DAWN_ENFORCE(!_api_key.empty() && !_secret_key.empty(),
                  "API Key and Secret Key has not been set.");
@@ -509,7 +546,8 @@ std::string BinanceAPI::CancelOrder(const std::string_view &symbol,
                                     const long &orderId,
                                     const std::string_view &origClientOrderId,
                                     const std::string_view &newClientOrderId,
-                                    const long &recvWindow) {
+                                    const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::send_order>");
     DAWN_ENFORCE(!_api_key.empty() && !_secret_key.empty(),
                  "API Key and Secret Key has not been set.");
@@ -546,7 +584,8 @@ std::string BinanceAPI::CancelOrder(const std::string_view &symbol,
     extra_http_header.emplace_back(std::move(header_chunk));
 
     DAWN_INFO("<BinanceAPI::SendOrder> url = |{}|, post_data = |{}|",
-              url.c_str(), post_data.c_str());
+              url.c_str(),
+              post_data.c_str());
 
     return CurlAPIWithHeader(url, extra_http_header, post_data, action);
 }
@@ -554,7 +593,8 @@ std::string BinanceAPI::CancelOrder(const std::string_view &symbol,
 //--------------------
 // Start user data stream (API-KEY)
 
-std::string BinanceAPI::StartUserDataStream() {
+std::string BinanceAPI::StartUserDataStream()
+{
     DAWN_INFO("<BinanceAPI::start_userDataStream>");
     DAWN_ENFORCE(!_api_key.empty(), "API Key has not been set.");
     auto url = fmt::format("{}/api/v1/userDataStream", BinanceAPI::BinanceHost);
@@ -569,7 +609,8 @@ std::string BinanceAPI::StartUserDataStream() {
 
 //--------------------
 // Keepalive user data stream (API-KEY)
-void BinanceAPI::KeepUserDataStream(const std::string_view &listenKey) {
+void BinanceAPI::KeepUserDataStream(const std::string_view &listenKey)
+{
     DAWN_INFO("<BinanceAPI::keep_userDataStream>");
     if (_api_key.empty()) {
         DAWN_ERROR("API key has not been set");
@@ -582,13 +623,15 @@ void BinanceAPI::KeepUserDataStream(const std::string_view &listenKey) {
     std::string action = "PUT";
     std::string post_data = fmt::format("listenKey={}", listenKey);
     DAWN_INFO("<BinanceAPI::keep_userDataStream> url = |{}|, post_data = |{}|",
-              url, post_data);
+              url,
+              post_data);
     CurlAPIWithHeader(url, extra_http_header, post_data, action);
 }
 
 //--------------------
 // Keepalive user data stream (API-KEY)
-void BinanceAPI::CloseUserDataStream(const std::string_view &listenKey) {
+void BinanceAPI::CloseUserDataStream(const std::string_view &listenKey)
+{
     DAWN_INFO("<BinanceAPI::close_userDataStream>");
     if (_api_key.empty()) {
         DAWN_ERROR("API Key has not been set.");
@@ -603,7 +646,8 @@ void BinanceAPI::CloseUserDataStream(const std::string_view &listenKey) {
     std::string post_data = fmt::format("listenKey={}", listenKey);
 
     DAWN_INFO("<BinanceAPI::close_userDataStream> url = |{}|, post_data = |{}|",
-              url.c_str(), post_data.c_str());
+              url.c_str(),
+              post_data.c_str());
 
     CurlAPIWithHeader(url, extra_http_header, post_data, action);
 }
@@ -628,7 +672,8 @@ std::string BinanceAPI::Withdraw(const std::string_view &asset,
                                  const std::string_view &addressTag,
                                  const double &amount,
                                  const std::string_view &name,
-                                 const long &recvWindow) {
+                                 const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::withdraw>");
     DAWN_ENFORCE(!_api_key.empty() && !_secret_key.empty(),
                  "API Key and Secret Key has not been set.");
@@ -656,8 +701,8 @@ std::string BinanceAPI::Withdraw(const std::string_view &asset,
     std::string header_chunk = fmt::format("X-MBX-APIKEY: {}", _api_key);
     extra_http_header.emplace_back(std::move(header_chunk));
 
-    DAWN_INFO("<BinanceAPI::withdraw> url = |{}|, post_data = |{}|", url,
-              post_data);
+    DAWN_INFO(
+        "<BinanceAPI::withdraw> url = |{}|, post_data = |{}|", url, post_data);
     return CurlAPIWithHeader(url, extra_http_header, post_data, action);
 }
 
@@ -679,7 +724,8 @@ std::string BinanceAPI::GetDepositHistory(const std::string_view &asset,
                                           const int &status,
                                           const long &startTime,
                                           const long &endTime,
-                                          const long &recvWindow) {
+                                          const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::get_depostHistory>");
     DAWN_ENFORCE(!_api_key.empty() && !_secret_key.empty(),
                  "API Key and Secret Key has not been set.");
@@ -740,7 +786,8 @@ std::string BinanceAPI::GetWithdrawHistory(const std::string_view &asset,
                                            const int &status,
                                            const long &startTime,
                                            const long &endTime,
-                                           const long &recvWindow) {
+                                           const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::get_withdrawHistory>");
     DAWN_ENFORCE(!_api_key.empty() && !_secret_key.empty(),
                  "API Key and Secret Key has not been set.");
@@ -797,7 +844,8 @@ timestamp	LONG	YES
 */
 
 std::string BinanceAPI::GetDepositAddress(const std::string_view &asset,
-                                          const long &recvWindow) {
+                                          const long &recvWindow)
+{
     DAWN_INFO("<BinanceAPI::get_depositAddress>");
     DAWN_ENFORCE(!_api_key.empty() && !_secret_key.empty(),
                  "API Key and Secret Key has not been set.");
@@ -826,8 +874,11 @@ std::string BinanceAPI::GetDepositAddress(const std::string_view &asset,
 
 //-----------------
 // Curl's callback
-size_t BinanceAPI::CurlCb(void *content, size_t size, size_t nmemb,
-                          std::string *buffer) {
+size_t BinanceAPI::CurlCb(void *content,
+                          size_t size,
+                          size_t nmemb,
+                          std::string *buffer)
+{
     DAWN_INFO("<BinanceAPI::curl_cb> ");
     buffer->append((char *)content, size * nmemb);
     DAWN_INFO("<BinanceAPI::curl_cb> done");
@@ -835,7 +886,8 @@ size_t BinanceAPI::CurlCb(void *content, size_t size, size_t nmemb,
 }
 
 //--------------------------------------------------
-std::string BinanceAPI::CurlAPI(const std::string &url) {
+std::string BinanceAPI::CurlAPI(const std::string &url)
+{
     std::vector<std::string> v;
     std::string action = "GET";
     std::string post_data = "";
@@ -845,8 +897,11 @@ std::string BinanceAPI::CurlAPI(const std::string &url) {
 //--------------------
 // Do the curl
 std::string BinanceAPI::CurlAPIWithHeader(
-    const std::string &url, const std::vector<std::string> &extra_http_header,
-    const std::string &post_data, const std::string &action) {
+    const std::string &url,
+    const std::vector<std::string> &extra_http_header,
+    const std::string &post_data,
+    const std::string &action)
+{
     DAWN_INFO("<BinanceAPI::curl_api>");
     CURLcode res;
     if (_curl == nullptr) {

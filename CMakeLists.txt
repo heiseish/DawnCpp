@@ -60,6 +60,7 @@ target_link_libraries(
         ${3RDPARTY_LIBRARIES}
 )
 
+#[[
 
 # ----- trading -----
 
@@ -88,6 +89,10 @@ target_link_libraries(
     DawnTrade
         ${3RDPARTY_LIBRARIES}
 )
+
+
+]]
+
 
 
 # --- testing binary ---
@@ -121,6 +126,7 @@ target_link_libraries(
 )
 
 # --- benchmark binary ---
+
 set(BENCHMARK_ENABLE_GTEST_TESTS OFF)
 set(CMAKE_BUILD_TYPE Release)
 set(BENCHMARK_ENABLE_LTO true)

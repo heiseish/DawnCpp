@@ -7,8 +7,8 @@ namespace {
 using namespace rapidjson;
 
 }
-BinanceKLineData BinanceKLineData::FromJson(
-    const GenericValue<UTF8<char>>& doc) {
+BinanceKLineData BinanceKLineData::FromJson(const GenericValue<UTF8<char>>& doc)
+{
     BinanceKLineData res;
     DAWN_ENFORCE(doc.IsArray(), "Data is not array");
     DAWN_ENFORCE(doc.Size() >= 11, "Invalid binance kline data");

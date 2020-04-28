@@ -16,7 +16,8 @@
 
 namespace Dawn::Core {
 
-TextResponder::TextResponder() {
+TextResponder::TextResponder()
+{
     _executers.emplace(BaseActionType::Document,
                        std::make_unique<DocumentBaseAction>());
     _executers.emplace(BaseActionType::News,
@@ -29,7 +30,8 @@ TextResponder::TextResponder() {
                        std::make_unique<WeatherBaseAction>());
 }
 
-MessageResponse TextResponder::GenerateResponse(MessageRequest&& request) {
+MessageResponse TextResponder::GenerateResponse(MessageRequest&& request)
+{
     MessageResponse res;
     res.user_info = request.user_info;
     res.platform_type = request.platform_type;
@@ -37,7 +39,8 @@ MessageResponse TextResponder::GenerateResponse(MessageRequest&& request) {
     if (request.message.is(MessageType::Text)) {
         auto text_msg = request.message.get<std::string>();
         intent = _text_classifier.classify(text_msg);
-    } else if (request.message.is(MessageType::Location)) {
+    }
+    else if (request.message.is(MessageType::Location)) {
         intent = BaseActionType::Weather;
     }
     res.message = _executers[intent]->Execute(std::move(request));

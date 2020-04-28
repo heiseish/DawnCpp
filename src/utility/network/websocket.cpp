@@ -12,7 +12,8 @@ const char *Websocket::_name = "websocket-api";
 
 std::array<struct lws_protocols, 2> protocols;
 
-void set_protocols() {
+void set_protocols()
+{
     protocols[0] = {.name = "websocket-api",
                     .callback = Websocket::event_callback,
                     .per_session_data_size = 0,
@@ -29,9 +30,12 @@ void set_protocols() {
 
 map<struct lws *, Callback> Websocket::_handles;
 
-int Websocket::event_callback(struct lws *wsi, enum lws_callback_reasons reason,
-                              [[maybe_unused]] void *user, void *in,
-                              [[maybe_unused]] size_t len) {
+int Websocket::event_callback(struct lws *wsi,
+                              enum lws_callback_reasons reason,
+                              [[maybe_unused]] void *user,
+                              void *in,
+                              [[maybe_unused]] size_t len)
+{
     switch (reason) {
         case LWS_CALLBACK_CLIENT_ESTABLISHED:
             lws_callback_on_writable(wsi);
@@ -76,7 +80,8 @@ int Websocket::event_callback(struct lws *wsi, enum lws_callback_reasons reason,
         }
         case LWS_CALLBACK_CLIENT_CLOSED: {
             DAWN_INFO("LWS_CALLBACK_CLIENT_CLOSED");
-            if (_handles.find(wsi) != _handles.end()) _handles.erase(wsi);
+            if (_handles.find(wsi) != _handles.end())
+                _handles.erase(wsi);
             atomic_store(&_lws_service_cancelled, true);
             break;
         }
@@ -84,7 +89,8 @@ int Websocket::event_callback(struct lws *wsi, enum lws_callback_reasons reason,
             return (uint64_t)pthread_self();
         }
         case LWS_CALLBACK_CLIENT_CONNECTION_ERROR: {
-            if (_handles.find(wsi) != _handles.end()) _handles.erase(wsi);
+            if (_handles.find(wsi) != _handles.end())
+                _handles.erase(wsi);
             std::string str_result = std::string((char *)in);
             DAWN_ERROR("LWS_CALLBACK_CLIENT_CONNECTION_ERROR {}", str_result);
             atomic_store(&_lws_service_cancelled, true);
@@ -138,7 +144,8 @@ int Websocket::event_callback(struct lws *wsi, enum lws_callback_reasons reason,
     return 0;
 }
 
-void Websocket::Initialize() {
+void Websocket::Initialize()
+{
     DAWN_INFO("Websocket Initializing");
     struct lws_context_creation_info info;
     memset(&info, 0, sizeof(info));
@@ -157,8 +164,11 @@ void Websocket::Initialize() {
 }
 
 // Register call backs
-void Websocket::ConnectEndpoint(Callback user_cb, const char *path,
-                                const char *endpoint, const int &port) {
+void Websocket::ConnectEndpoint(Callback user_cb,
+                                const char *path,
+                                const char *endpoint,
+                                const int &port)
+{
     // Connect if we are not connected to the server.
     DAWN_INFO("WS Connecting to {}{}", endpoint, path);
     struct lws_client_connect_info ccinfo = {0, .address = endpoint};
@@ -177,7 +187,8 @@ void Websocket::ConnectEndpoint(Callback user_cb, const char *path,
 }
 
 // Entering event loop
-void Websocket::EnterEventLoop() {
+void Websocket::EnterEventLoop()
+{
     DAWN_INFO("Starting WS Event Loop");
     while (true) {
         lws_service(_context, 500);
@@ -189,7 +200,8 @@ void Websocket::EnterEventLoop() {
 }
 
 ///! can also call lws_cancel_service(_context); from other thread
-void Websocket::StopEventLoop() {
+void Websocket::StopEventLoop()
+{
     DAWN_INFO("Stopping event loop");
     atomic_store(&_lws_service_cancelled, true);
     if (_context != nullptr) {

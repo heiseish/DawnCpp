@@ -9,23 +9,25 @@ namespace Dawn::Core {
 
 // Global variable containing all the threads currently running
 std::unique_ptr<
-    Utility::WorkerThread<MessageResponse, SA::delegate<void(MessageResponse)>>>
+    EventLoop<MessageResponse, SA::delegate<void(MessageResponse)>>>
     ThreadManager::RespondingThread = nullptr;
 
 std::unique_ptr<
-    Utility::WorkerThread<MessageRequest, SA::delegate<void(MessageRequest)>>>
+    EventLoop<MessageRequest, SA::delegate<void(MessageRequest)>>>
     ThreadManager::ProcessingThread = nullptr;
 
 std::vector<std::thread> ThreadManager::PlatformThreads = {};
 
-void ThreadManager::StopAllThreads() {
+void ThreadManager::StopAllThreads()
+{
     // terminate program
 #ifdef USE_LIBTELEGRAM
     DAWN_INFO("Stopping telegram");
     telegram::listener::poll::stop_all();
 #endif
     DAWN_INFO("Stopping all platform threads");
-    for (auto& thread_ : ThreadManager::PlatformThreads) thread_.join();
+    for (auto& thread_ : ThreadManager::PlatformThreads)
+        thread_.join();
     DAWN_INFO("Stopping processing thread");
     ThreadManager::ProcessingThread->ExitThread();
     DAWN_INFO("Stopping responding thread");

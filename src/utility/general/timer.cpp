@@ -4,14 +4,16 @@
 namespace Dawn::Utility {
 
 //---------------------------------
-time_t GetCurrentEpoch() {
+time_t GetCurrentEpoch()
+{
     struct timeval tv;
     gettimeofday(&tv, nullptr);
     return tv.tv_sec;
 }
 
 //---------------------------------
-unsigned long GetCurrentEpochMs() {
+unsigned long GetCurrentEpochMs()
+{
     struct timeval tv;
     gettimeofday(&tv, nullptr);
     return tv.tv_sec * 1000 + tv.tv_usec / 1000;

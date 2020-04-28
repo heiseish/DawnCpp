@@ -11,7 +11,8 @@
 namespace Dawn::Core {
 
 std::vector<Message> UnknownBaseAction::Execute([
-    [maybe_unused]] MessageRequest&& request) const {
+    [maybe_unused]] MessageRequest&& request) const
+{
     std::vector<Message> reply;
     Message initial;
     initial.set<std::string>(MessageType::Text, "...");

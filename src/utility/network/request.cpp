@@ -10,14 +10,18 @@
 #include "utility/general/logging.hpp"
 namespace Dawn::Utility {
 
-std::size_t callback(const char* in, std::size_t size, std::size_t num,
-                     std::string* out) {
+std::size_t callback(const char* in,
+                     std::size_t size,
+                     std::size_t num,
+                     std::string* out)
+{
     const std::size_t totalBytes(size * num);
     out->append(in, totalBytes);
     return totalBytes;
 }
 
-Requester::Requester(const bool ipv6, const int timeout) {
+Requester::Requester(const bool ipv6, const int timeout)
+{
     _curl = curl_easy_init();
     // Don't bother trying IPv6, which would increase DNS resolution time.
     if (ipv6)
@@ -33,14 +37,17 @@ Requester::Requester(const bool ipv6, const int timeout) {
     curl_easy_setopt(_curl, CURLOPT_WRITEFUNCTION, callback);
 }
 
-Requester::~Requester() {
+Requester::~Requester()
+{
     if (_curl != nullptr) {
         curl_easy_cleanup(_curl);
     }
 }
 
 std::optional<rapidjson::Document> Requester::request(
-    const std::string& url, RequestMode mode = RequestMode::GET) const {
+    const std::string& url,
+    RequestMode mode = RequestMode::GET) const
+{
     curl_easy_setopt(_curl, CURLOPT_URL, url.c_str());
     if (mode == RequestMode::POST) {
         curl_easy_setopt(_curl, CURLOPT_POST, 1);
@@ -68,12 +75,14 @@ std::optional<rapidjson::Document> Requester::request(
 }
 
 std::optional<rapidjson::Document> Requester::GetRequest(
-    const std::string& url) const {
+    const std::string& url) const
+{
     return request(url);
 }
 
 std::optional<rapidjson::Document> Requester::PostRequest(
-    const std::string& url) const {
+    const std::string& url) const
+{
     return request(url, RequestMode::POST);
 }
 

@@ -8,7 +8,8 @@ namespace {
 using namespace Dawn;
 
 }
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     // -------- House keeping funcs -----------------------
     InitArgs(argc, argv);
     InitLogger();

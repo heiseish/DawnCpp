@@ -30,35 +30,41 @@ public:
 
 template <typename ContentType>
 template <class... Args>
-void ThreadMessage<ContentType>::SetContent(Args&&... args) {
+void ThreadMessage<ContentType>::SetContent(Args&&... args)
+{
     type = ThreadMessageType::Content;
     content = std::make_shared<ContentType>(std::forward<Args>(args)...);
 }
 
 template <typename ContentType>
-void ThreadMessage<ContentType>::SetType(ThreadMessageType type_) {
+void ThreadMessage<ContentType>::SetType(ThreadMessageType type_)
+{
     type = type_;
 }
 
 template <typename ContentType>
 void ThreadMessage<ContentType>::Set(ThreadMessageType type_,
-                                     ContentType content_) {
+                                     ContentType content_)
+{
     type = type_;
     *content = content_;
 }
 
 template <typename ContentType>
-bool ThreadMessage<ContentType>::IsContent() const {
+bool ThreadMessage<ContentType>::IsContent() const
+{
     return type == ThreadMessageType::Content;
 }
 
 template <typename ContentType>
-bool ThreadMessage<ContentType>::IsTimerType() const {
+bool ThreadMessage<ContentType>::IsTimerType() const
+{
     return type == ThreadMessageType::TimerType;
 }
 
 template <typename ContentType>
-bool ThreadMessage<ContentType>::IsExit() const {
+bool ThreadMessage<ContentType>::IsExit() const
+{
     return type == ThreadMessageType::Exit;
 }
 /// Synchronized and thread safe queue used for polling
@@ -89,13 +95,18 @@ private:
 };
 
 template <typename T>
-SharedQueue<T>::SharedQueue() {}
+SharedQueue<T>::SharedQueue()
+{
+}
 
 template <typename T>
-SharedQueue<T>::~SharedQueue() {}
+SharedQueue<T>::~SharedQueue()
+{
+}
 
 template <typename T>
-ThreadMessage<T>& SharedQueue<T>::front() {
+ThreadMessage<T>& SharedQueue<T>::front()
+{
     std::unique_lock<std::mutex> mlock(_mutex);
     while (_queue.empty()) {
         _cond.wait(mlock);
@@ -104,7 +115,8 @@ ThreadMessage<T>& SharedQueue<T>::front() {
 }
 
 template <typename T>
-void SharedQueue<T>::pop_front() {
+void SharedQueue<T>::pop_front()
+{
     std::unique_lock<std::mutex> mlock(_mutex);
     while (_queue.empty()) {
         _cond.wait(mlock);
@@ -113,7 +125,8 @@ void SharedQueue<T>::pop_front() {
 }
 
 template <typename T>
-ThreadMessage<T> SharedQueue<T>::get_front() {
+ThreadMessage<T> SharedQueue<T>::get_front()
+{
     std::unique_lock<std::mutex> mlock(_mutex);
     while (_queue.empty()) {
         _cond.wait(mlock);
@@ -124,7 +137,8 @@ ThreadMessage<T> SharedQueue<T>::get_front() {
 }
 
 template <typename T>
-void SharedQueue<T>::push_back(const ThreadMessage<T>& item) {
+void SharedQueue<T>::push_back(const ThreadMessage<T>& item)
+{
     std::unique_lock<std::mutex> mlock(_mutex);
     _queue.push_back(item);
     mlock.unlock();      // unlock before notificiation to minimize mutex con
@@ -132,7 +146,8 @@ void SharedQueue<T>::push_back(const ThreadMessage<T>& item) {
 }
 
 template <typename T>
-void SharedQueue<T>::push_back(ThreadMessage<T>&& item) {
+void SharedQueue<T>::push_back(ThreadMessage<T>&& item)
+{
     std::unique_lock<std::mutex> mlock(_mutex);
     _queue.push_back(std::move(item));
     mlock.unlock();      // unlock before notificiation to minimize mutex con
@@ -141,7 +156,8 @@ void SharedQueue<T>::push_back(ThreadMessage<T>&& item) {
 
 template <typename T>
 template <class... Args>
-void SharedQueue<T>::emplace_back(Args&&... args) {
+void SharedQueue<T>::emplace_back(Args&&... args)
+{
     std::unique_lock<std::mutex> mlock(_mutex);
     ThreadMessage<T> thread_msg_;
     thread_msg_.SetContent(std::forward<Args>(args)...);
@@ -151,7 +167,8 @@ void SharedQueue<T>::emplace_back(Args&&... args) {
 }
 
 template <typename T>
-int SharedQueue<T>::size() {
+int SharedQueue<T>::size()
+{
     std::unique_lock<std::mutex> mlock(_mutex);
     int size = _queue.size();
     mlock.unlock();
@@ -159,13 +176,16 @@ int SharedQueue<T>::size() {
 }
 
 template <typename T>
-void SharedQueue<T>::clear() {
+void SharedQueue<T>::clear()
+{
     std::unique_lock<std::mutex> mlock(_mutex);
-    while (!_queue.empty()) _queue.pop_front();
+    while (!_queue.empty())
+        _queue.pop_front();
 }
 
 template <typename T>
-bool SharedQueue<T>::empty() {
+bool SharedQueue<T>::empty()
+{
     std::unique_lock<std::mutex> mlock(_mutex);
     return _queue.empty();
 }

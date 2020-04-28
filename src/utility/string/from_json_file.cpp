@@ -4,7 +4,8 @@
 
 namespace Dawn::Utility {
 
-std::string FromJsonFile(const std::string& file_path) {
+std::string FromJsonFile(const std::string& file_path)
+{
     std::ifstream file(file_path);
     std::ostringstream tmp;
     tmp << file.rdbuf();

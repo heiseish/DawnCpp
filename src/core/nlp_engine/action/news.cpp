@@ -14,9 +14,12 @@
 namespace Dawn::Core {
 
 NewsBaseAction::NewsBaseAction()
-    : _news_api(External::NewsAPI(std::getenv("NEWSAPI_KEY"))) {}
+    : _news_api(External::NewsAPI(std::getenv("NEWSAPI_KEY")))
+{
+}
 
-std::vector<Message> NewsBaseAction::Execute(MessageRequest&& request) const {
+std::vector<Message> NewsBaseAction::Execute(MessageRequest&& request) const
+{
     std::vector<Message> reply;
     auto text_msg = request.message.get<std::string>();
     // removed any news keyword
@@ -29,7 +32,8 @@ std::vector<Message> NewsBaseAction::Execute(MessageRequest&& request) const {
     if (articles.empty()) {
         initial.set<std::string>(MessageType::Text,
                                  "Sorry I cannot get any news right now!");
-    } else {
+    }
+    else {
         initial.set<std::string>(MessageType::Text,
                                  fmt::format("Hey {}, here are the top news:",
                                              request.user_info.first_name));

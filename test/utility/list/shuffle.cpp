@@ -3,9 +3,11 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class ShuffleTest : public ::testing::Test {};
+class ShuffleTest : public ::testing::Test {
+};
 
-TEST_F(ShuffleTest, ShuffleWholeVector) {
+TEST_F(ShuffleTest, ShuffleWholeVector)
+{
     std::vector<int> test_vec(1000);
     for (unsigned int i = 0; i < test_vec.size(); ++i) {
         test_vec.at(i) = i;
@@ -16,7 +18,8 @@ TEST_F(ShuffleTest, ShuffleWholeVector) {
               copy_vec);  // chance of completely the same is very small
 }
 
-TEST_F(ShuffleTest, ShuffleHalfVector) {
+TEST_F(ShuffleTest, ShuffleHalfVector)
+{
     std::vector<int> test_vec(1000);
     for (unsigned int i = 0; i < test_vec.size(); ++i) {
         test_vec.at(i) = i;

@@ -14,13 +14,17 @@ public:
     WeatherDetails() {}
 
     WeatherDetails(const std::string& _current, const std::string& _summary)
-        : current(_current), summary(_summary) {}
+        : current(_current), summary(_summary)
+    {
+    }
 
     WeatherDetails(WeatherDetails&& other)
-        : current(std::move(other.current)),
-          summary(std::move(other.summary)) {}
+        : current(std::move(other.current)), summary(std::move(other.summary))
+    {
+    }
 
-    WeatherDetails& operator=(WeatherDetails&& other) {
+    WeatherDetails& operator=(WeatherDetails&& other)
+    {
         if (this != &other) {
             current = std::move(other.current);
             summary = std::move(other.summary);

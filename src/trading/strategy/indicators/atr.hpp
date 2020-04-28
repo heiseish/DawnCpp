@@ -7,22 +7,30 @@
 #include "indicator.hpp"
 #include "smma.hpp"
 
-
 /**
  * @brief Defined by J. Welles Wilder, Jr. in 1978 in his book *"New Concepts in
  * Technical Trading Systems"* for the ATR
- * Records the "true high" which is the maximum of today's high and yesterday's close
+ * Records the "true high" which is the maximum of today's high and yesterday's
+ * close
  * @formular
  *          - truehigh = max(high, close_prev)
  * @see http://en.wikipedia.org/wiki/Average_true_range
-*/
+ */
 class TrueHigh : public Indicator {
 public:
     constexpr static std::string_view Group = "volatility";
-    const static std::string_view Alias[4] =  {"TR", "TrueRange", "trange", "TRANGE"}
-    const static std::string_view Inputs[4] =  {"low", "close"}
-    const static std::string_view Outputs[1] = {"truehi"}
-    
+    const static std::string_view Alias[4] = {
+        "TR",
+        "TrueRange",
+        "trange",
+        "TRANGE"
+    } const static std::string_view Inputs[4] = {
+        "low",
+        "close"
+    } const static std::string_view Outputs[1] = {
+        "truehi"
+    }
+
 }
 class truehigh(Indicator):
     '''

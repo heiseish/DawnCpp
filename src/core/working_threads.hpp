@@ -14,14 +14,19 @@
 
 namespace Dawn::Core {
 
+template <typename T, typename F>
+using EventLoop = Utility::WorkerThread<T, F>;
+
 class ThreadManager {
 public:
     // Global variable containing all the threads currently running
-    static std::unique_ptr<Utility::WorkerThread<
-        MessageResponse, SA::delegate<void(MessageResponse)>>>
+    static std::unique_ptr<
+        EventLoop<MessageResponse,
+                              SA::delegate<void(MessageResponse)>>>
         RespondingThread;
-    static std::unique_ptr<Utility::WorkerThread<
-        MessageRequest, SA::delegate<void(MessageRequest)>>>
+    static std::unique_ptr<
+        EventLoop<MessageRequest,
+                              SA::delegate<void(MessageRequest)>>>
         ProcessingThread;
 
     static std::vector<std::thread> PlatformThreads;

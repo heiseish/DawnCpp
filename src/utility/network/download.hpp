@@ -5,7 +5,8 @@
 #include <string>
 namespace Dawn::Utility {
 
-bool Download(const std::string& uri, const std::string& saved_path,
+bool Download(const std::string& uri,
+              const std::string& saved_path,
               bool overwrite = false) noexcept;
 
 }

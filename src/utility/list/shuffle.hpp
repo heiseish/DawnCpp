@@ -9,13 +9,15 @@
 namespace Dawn::Utility {
 
 template <typename T>
-void Shuffle(std::vector<T>& in_list) {
+void Shuffle(std::vector<T>& in_list)
+{
     std::shuffle(in_list.begin(), in_list.end(), GetRandomGenerator());
 }
 
 template <typename T>
 void Shuffle(typename std::vector<T>::iterator first,
-             typename std::vector<T>::iterator last) {
+             typename std::vector<T>::iterator last)
+{
     std::shuffle(first, last, GetRandomGenerator());
 }
 

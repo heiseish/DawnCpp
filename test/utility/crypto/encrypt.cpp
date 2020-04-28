@@ -3,9 +3,11 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class EncryptTest : public ::testing::Test {};
+class EncryptTest : public ::testing::Test {
+};
 
-TEST_F(EncryptTest, sha256) {
+TEST_F(EncryptTest, sha256)
+{
     auto res = sha256("abc");
     EXPECT_EQ(
         res,
@@ -29,7 +31,8 @@ TEST_F(EncryptTest, sha256) {
         "cf5b16a778af8380036ce59e7b0492370b249b11e8f07a51afac45037afee9d1");
 }
 
-TEST_F(EncryptTest, hmac_sha256) {
+TEST_F(EncryptTest, hmac_sha256)
+{
     auto res =
         hmac_sha256("key", "The quick brown fox jumps over the lazy dog");
     EXPECT_EQ(

@@ -10,9 +10,11 @@ namespace Dawn::Utility {
 namespace {
 namespace fs = std::filesystem;
 }
-class FromJsonFileTest : public ::testing::Test {};
+class FromJsonFileTest : public ::testing::Test {
+};
 
-TEST_F(FromJsonFileTest, GetContentCorrectly) {
+TEST_F(FromJsonFileTest, GetContentCorrectly)
+{
     auto config_path = fs::path(GetCurrentWorkingDirectory());
     config_path /= "../config/test.json";
     auto res = FromJsonFile(config_path);

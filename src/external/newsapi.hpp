@@ -22,15 +22,20 @@ public:
         : title(param_title),
           author(param_author),
           url(param_url),
-          urlToImage(param_urlToImage) {}
+          urlToImage(param_urlToImage)
+    {
+    }
 
     NewsAPIArticle(NewsAPIArticle&& other)
         : title(std::move(other.title)),
           author(std::move(other.author)),
           url(std::move(other.url)),
-          urlToImage(std::move(other.urlToImage)) {}
+          urlToImage(std::move(other.urlToImage))
+    {
+    }
 
-    NewsAPIArticle& operator=(NewsAPIArticle&& other) {
+    NewsAPIArticle& operator=(NewsAPIArticle&& other)
+    {
         if (this != &other) {
             title = std::move(other.title);
             author = std::move(other.author);

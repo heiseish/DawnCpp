@@ -17,11 +17,14 @@ using namespace rapidjson;
 
 }  // namespace
 
-BinanceTraderConfig get_binance_config(const GenericValue<UTF8<char>>& doc) {
+BinanceTraderConfig get_binance_config([
+    [maybe_unused]] const GenericValue<UTF8<char>>& doc)
+{
     return BinanceTraderConfig();
 }
 
-void TraderManager::InitializeTraders() {
+void TraderManager::InitializeTraders()
+{
     auto config_path = path(absl::GetFlag(FLAGS_config_folder));
     auto config_file = config_path / "trading.json";
     DAWN_INFO("Loading config file at {}", config_file.string());
@@ -29,7 +32,8 @@ void TraderManager::InitializeTraders() {
 
     Document doc;
     DAWN_STRICT_ENFORCE(!doc.Parse(configs.c_str()).HasParseError(),
-                        "Failed to parse json due to {}", doc.GetParseError());
+                        "Failed to parse json due to {}",
+                        doc.GetParseError());
     DAWN_STRICT_ENFORCE(doc.IsArray(), "Config file should be an array");
 
     for (SizeType i = 0; i < doc.Size(); ++i) {
@@ -42,18 +46,22 @@ void TraderManager::InitializeTraders() {
         }
     }
 
-    std::for_each(_traders.begin(), _traders.end(),
-                  [](auto& trader) { trader->Initialize(); });
+    std::for_each(_traders.begin(), _traders.end(), [](auto& trader) {
+        trader->Initialize();
+    });
 }
 
-void TraderManager::ActivateAllTraders() {
-    std::for_each(_traders.begin(), _traders.end(),
-                  [](auto& trader) { trader->Start(); });
+void TraderManager::ActivateAllTraders()
+{
+    std::for_each(_traders.begin(), _traders.end(), [](auto& trader) {
+        trader->Start();
+    });
 }
 
-void TraderManager::StopAllTraders() {
-    std::for_each(_traders.begin(), _traders.end(),
-                  [](auto& trader) { trader->Stop(); });
+void TraderManager::StopAllTraders()
+{
+    std::for_each(
+        _traders.begin(), _traders.end(), [](auto& trader) { trader->Stop(); });
 }
 
 }  // namespace Dawn::Trading

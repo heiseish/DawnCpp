@@ -8,13 +8,15 @@ protected:
     virtual void SetUp() {}
 };
 
-TEST_F(URLTest, EncodeSuccessfully) {
+TEST_F(URLTest, EncodeSuccessfully)
+{
     std::string raw_uri = "www.example.com/data?name=John Robinson";
     URLParser::EncodeURL(raw_uri);
     EXPECT_EQ(raw_uri, "www.example.com/data?name=John%20Robinson");
 }
 
-TEST_F(URLTest, RedirectSuccessfully) {
+TEST_F(URLTest, RedirectSuccessfully)
+{
     GTEST_SKIP();
     std::string uri = "https://source.unsplash.com/1600x900/?beach";
     auto res = URLParser::GetFinalRedirectedUrl(uri);
