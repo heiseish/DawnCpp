@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CORE_PLATFORM_RESPONSE_H
-#define CORE_PLATFORM_RESPONSE_H
-
 #include <vector>
 
 #include "message.hpp"
@@ -17,4 +14,3 @@ struct MessageResponse {
 };
 
 }  // namespace Dawn::Core
-#endif

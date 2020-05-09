@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef DAWN_WORKING_THREADS_H
-#define DAWN_WORKING_THREADS_H
-
 #include <memory>
 #include <vector>
 
@@ -14,23 +11,23 @@
 
 namespace Dawn::Core {
 
+namespace {
 template <typename T, typename F>
 using EventLoop = Utility::WorkerThread<T, F>;
+
+template <typename T>
+using EventThread = std::unique_ptr<EventLoop<T, SA::delegate<void(T)>>>;
+
+}  // namespace
 
 class ThreadManager {
 public:
     // Global variable containing all the threads currently running
-    static std::unique_ptr<
-        EventLoop<MessageResponse, SA::delegate<void(MessageResponse)>>>
-        RespondingThread;
-    static std::unique_ptr<
-        EventLoop<MessageRequest, SA::delegate<void(MessageRequest)>>>
-        ProcessingThread;
+    static EventThread<MessageResponse> RespondingThread;
+    static EventThread<MessageRequest> ProcessingThread;
 
     static std::vector<std::thread> PlatformThreads;
     static void StopAllThreads();
 };
 
 }  // namespace Dawn::Core
-
-#endif

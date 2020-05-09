@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef EXTERNAL_NEWSAPI_H
-#define EXTERNAL_NEWSAPI_H
-
 #include <curl/curl.h>
 #include <iostream>
 #include <random>
@@ -78,5 +75,3 @@ private:
 };
 
 }  // namespace Dawn::External
-
-#endif

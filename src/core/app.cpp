@@ -85,8 +85,9 @@ void Application::Start()
         Utility::WorkerThread<MessageResponse, decltype(res_delegate_)>>(
         "RespondingThread", res_delegate_instance_, _response_queue);
     ThreadManager::RespondingThread->CreateThread();
-    while (true) {
-    }
+    // clang-format off
+    while (true);
+    // clang-format on
 }
 
 }  // namespace Dawn::Core

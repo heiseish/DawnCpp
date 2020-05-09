@@ -115,8 +115,8 @@ void TelegramPlatform::Send(const UserInfo& user_info, const Message& message)
                                       user_info.message_id);
             }
         }
-        DAWN_INFO("[ Telegram ] Send message: {} ms",
-                  timer_.Record<MilliSeconds>());
+        DAWN_DEBUG("[ Telegram ] Send message: {} ms",
+                   timer_.Record<MilliSeconds>());
     }
     catch (const std::runtime_error& e) {
         DAWN_ERROR(e.what());

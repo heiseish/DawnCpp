@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef DAWN_EXTERNAL_BINANCE_H
-#define DAWN_EXTERNAL_BINANCE_H
-
 #include <curl/curl.h>
 #include <optional>
 #include <string>
@@ -128,5 +125,3 @@ private:
 };
 
 }  // namespace Dawn::External
-
-#endif

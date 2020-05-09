@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CORE_ACTION_H
-#define CORE_ACTION_H
-
 #include <vector>
 
 #include "core/platform/message.hpp"
@@ -17,4 +14,3 @@ public:
 };
 
 }  // namespace Dawn::Core
-#endif

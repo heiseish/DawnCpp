@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef EXTERNAL_FORECAST_IO_H
-#define EXTERNAL_FORECAST_IO_H
-
 #include <string>
 #include "utility/geography/coordinates.hpp"
 #include "utility/network/request.hpp"
@@ -16,20 +13,6 @@ public:
     WeatherDetails(const std::string& _current, const std::string& _summary)
         : current(_current), summary(_summary)
     {
-    }
-
-    WeatherDetails(WeatherDetails&& other)
-        : current(std::move(other.current)), summary(std::move(other.summary))
-    {
-    }
-
-    WeatherDetails& operator=(WeatherDetails&& other)
-    {
-        if (this != &other) {
-            current = std::move(other.current);
-            summary = std::move(other.summary);
-        }
-        return *this;
     }
     std::string current;
     std::string summary;
@@ -55,5 +38,3 @@ private:
 };
 
 }  // namespace Dawn::External
-
-#endif

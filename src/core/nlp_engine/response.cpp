@@ -54,11 +54,11 @@ MessageResponse TextResponder::GenerateResponse(MessageRequest&& request)
     res.user_info = request.user_info;
     res.platform_type = request.platform_type;
     BaseActionType intent = BaseActionType::Document;
-    if (request.message.is(MessageType::Text)) {
+    if (request.message.isText()) {
         auto text_msg = request.message.get<std::string>();
         intent = _text_classifier.classify(text_msg);
     }
-    else if (request.message.is(MessageType::Location)) {
+    else if (request.message.isLocation()) {
         intent = BaseActionType::Weather;
     }
     res.message = _mapper[intent](std::move(request));

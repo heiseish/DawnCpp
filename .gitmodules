@@ -13,3 +13,6 @@
 [submodule "3rdparty/abseil"]
 	path = 3rdparty/abseil
 	url = git@github.com:abseil/abseil-cpp.git
+[submodule "3rdparty/libtelegram"]
+	path = 3rdparty/libtelegram
+	url = git@github.com:heiseish/libtelegram.git

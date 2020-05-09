@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CORE_MESSAGE_H
-#define CORE_MESSAGE_H
-
 #include <any>
 
 namespace Dawn::Core {
@@ -10,7 +7,13 @@ enum MessageType { Text = 0, Image = 1, Audio = 2, Location = 3, Video = 4 };
 
 class Message {
 public:
-    bool is(MessageType message_type);
+    bool is(MessageType message_type) const;
+    bool isText() const;
+    bool isImage() const;
+    bool isAudio() const;
+    bool isLocation() const;
+    bool isVideo() const;
+
     const MessageType& get_type() const;
 
     template <typename value_type>
@@ -39,4 +42,3 @@ private:
 };
 
 }  // namespace Dawn::Core
-#endif

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CORE_NLP_BASE_NEWS_H
-#define CORE_NLP_BASE_NEWS_H
-
 #include <cstdlib>
 #include <string_view>
 #include <vector>
@@ -27,4 +24,3 @@ private:
 };
 
 }  // namespace Dawn::Core
-#endif

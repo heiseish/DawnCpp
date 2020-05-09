@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CORE_NLP_BASE_UNKNWON_H
-#define CORE_NLP_BASE_UNKNWON_H
-
 #include <string_view>
 #include <vector>
 
@@ -22,4 +19,3 @@ public:
 };
 
 }  // namespace Dawn::Core
-#endif

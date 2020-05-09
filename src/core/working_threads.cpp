@@ -1,18 +1,12 @@
 #include "working_threads.hpp"
-#include "utility/network/websocket.hpp"
-
-#ifdef USE_LIBTELEGRAM
 #include "core/platform/telegram/tg_platform.hpp"
-#endif
+#include "utility/network/websocket.hpp"
 
 namespace Dawn::Core {
 
 // Global variable containing all the threads currently running
-std::unique_ptr<EventLoop<MessageResponse, SA::delegate<void(MessageResponse)>>>
-    ThreadManager::RespondingThread = nullptr;
-
-std::unique_ptr<EventLoop<MessageRequest, SA::delegate<void(MessageRequest)>>>
-    ThreadManager::ProcessingThread = nullptr;
+EventThread<MessageResponse> ThreadManager::RespondingThread = nullptr;
+EventThread<MessageRequest> ThreadManager::ProcessingThread = nullptr;
 
 std::vector<std::thread> ThreadManager::PlatformThreads = {};
 

@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef CORE_CLASSIFIER_H
-#define CORE_CLASSIFIER_H
 #include <string>
 #include "core/nlp_engine/action/action_types.hpp"
 namespace Dawn::Core {
@@ -16,4 +14,3 @@ public:
 };
 
 }  // namespace Dawn::Core
-#endif

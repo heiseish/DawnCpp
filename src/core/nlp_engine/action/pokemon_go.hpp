@@ -1,15 +1,11 @@
 #pragma once
 
-#ifndef CORE_NLP_BASE_POKEMON_GO_H
-#define CORE_NLP_BASE_POKEMON_GO_H
-
 #include <string_view>
 #include <vector>
 
 #include "core/nlp_engine/action.hpp"
 #include "core/platform/message.hpp"
 #include "core/platform/message_request.hpp"
-
 #include "external/twitter.hpp"
 
 namespace Dawn::Core {
@@ -27,4 +23,3 @@ private:
 };
 
 }  // namespace Dawn::Core
-#endif

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CORE_PLATFORM_REQUEST_H
-#define CORE_PLATFORM_REQUEST_H
-
 #include "message.hpp"
 #include "platform_types.hpp"
 #include "user_info.hpp"
@@ -15,4 +12,3 @@ struct MessageRequest {
 };
 
 }  // namespace Dawn::Core
-#endif

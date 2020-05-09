@@ -1,13 +1,10 @@
 #pragma once
 
-#ifndef CORE_TEXT_RESPONDER_H
-#define CORE_TEXT_RESPONDER_H
-
 #include <functional>
 #include <memory>
-// #include "utility/containers/unordered_map.hpp"
 #include <unordered_map>
 #include <vector>
+#include "utility/containers/unordered_map.hpp"
 
 #include "core/nlp_engine/action.hpp"
 #include "core/nlp_engine/action/action_types.hpp"
@@ -26,10 +23,9 @@ public:
     virtual MessageResponse GenerateResponse(MessageRequest&& request);
 
 private:
-    std::unordered_map<BaseActionType, ActionCallback> _mapper;
+    unordered_map<BaseActionType, ActionCallback> _mapper;
     std::vector<std::unique_ptr<ActionExecuter>> _executers;
     TextClassifierEngine _text_classifier;
 };
 
 }  // namespace Dawn::Core
-#endif

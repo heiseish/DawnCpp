@@ -5,8 +5,12 @@
 #include "core/nlp_engine/action/action_types.hpp"
 #include "library/algorithm/string/kmp.hpp"
 #include "utility/string/tolower.hpp"
-namespace Algo = Dawn::Library::Algorithm;
 
+namespace {
+
+using Algo = Dawn::Library::Algorithm::KMPAlgorithm;
+
+}
 namespace Dawn::Core {
 
 /**
@@ -17,13 +21,13 @@ BaseActionType TextClassifierEngine::classify(const std::string& text)
 {
     auto text_cp = text;
     Utility::ToLower(text_cp);
-    if (Algo::KMPAlgorithm::Contains(text_cp.c_str(), "news")) {
+    if (Algo::Contains(text_cp.c_str(), "news")) {
         return BaseActionType::News;
     }
-    else if (Algo::KMPAlgorithm::Contains(text_cp.c_str(), "pokemon go")) {
+    else if (Algo::Contains(text_cp.c_str(), "pokemon go")) {
         return BaseActionType::PokemonGo;
     }
-    else if (Algo::KMPAlgorithm::Contains(text_cp.c_str(), "weather")) {
+    else if (Algo::Contains(text_cp.c_str(), "weather")) {
         return BaseActionType::Weather;
     }
     return BaseActionType::Unknown;

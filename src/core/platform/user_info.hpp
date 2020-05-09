@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CORE_USER_INFO_H
-#define CORE_USER_INFO_H
-
 #include <string>
 
 namespace Dawn::Core {
@@ -13,4 +10,3 @@ struct UserInfo {
 };
 
 }  // namespace Dawn::Core
-#endif

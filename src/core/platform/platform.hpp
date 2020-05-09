@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef CORE_PLATFORM_H
-#define CORE_PLATFORM_H
-
 #include <memory>
 #include "core/platform/message.hpp"
 #include "core/platform/user_info.hpp"
@@ -27,4 +24,3 @@ protected:
 };
 
 }  // namespace Dawn::Core
-#endif

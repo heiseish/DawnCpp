@@ -21,7 +21,7 @@ std::vector<Message> WeatherBaseAction::Execute([
 {
     std::vector<Message> reply;
     External::WeatherDetails weather_details;
-    if (request.message.is(MessageType::Location)) {
+    if (request.message.isLocation()) {
         weather_details = _forecast_io.CurrentWeather(
             request.message.get<Geography::GeographicCoordinates>());
     }
