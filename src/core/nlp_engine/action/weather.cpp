@@ -7,10 +7,12 @@
 #include "core/platform/message_request.hpp"
 #include "external/forecast.hpp"
 #include "fmt/format.h"
+#include "utility/general/env.hpp"
+
 namespace Dawn::Core {
 
 WeatherBaseAction::WeatherBaseAction()
-    : _forecast_io(External::ForecastAPI(std::getenv("DARKSKY_KEY")))
+    : _forecast_io(External::ForecastAPI(Utility::SafeGetEnv("DARKSKY_KEY")))
 {
 }
 

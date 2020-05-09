@@ -11,6 +11,7 @@
 #include "rapidjson/stringbuffer.h"
 #include "rapidjson/writer.h"
 #include "utility/containers/map.hpp"
+#include "utility/general/env.hpp"
 #include "utility/general/logging.hpp"
 
 namespace Dawn::Utility {
@@ -23,7 +24,8 @@ protected:
     {
         GTEST_SKIP();
         binance_api_ = std::make_unique<External::BinanceAPI>(
-            std::getenv("BINANCE_KEY"), std::getenv("BINANCE_SECRET"));
+            Utility::SafeGetEnv("BINANCE_KEY"),
+            Utility::SafeGetEnv("BINANCE_SECRET"));
         Websocket::Initialize();
     }
 

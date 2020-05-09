@@ -7,6 +7,7 @@
 #include "core/platform/message_request.hpp"
 #include "external/newsapi.hpp"
 #include "fmt/format.h"
+#include "utility/general/env.hpp"
 #include "utility/string/replace.hpp"
 #include "utility/string/tolower.hpp"
 #include "utility/string/trim.hpp"
@@ -14,7 +15,7 @@
 namespace Dawn::Core {
 
 NewsBaseAction::NewsBaseAction()
-    : _news_api(External::NewsAPI(std::getenv("NEWSAPI_KEY")))
+    : _news_api(External::NewsAPI(Utility::SafeGetEnv("NEWSAPI_KEY")))
 {
 }
 

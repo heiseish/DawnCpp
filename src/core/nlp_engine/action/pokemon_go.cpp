@@ -7,15 +7,17 @@
 #include "core/platform/message_request.hpp"
 #include "external/twitter.hpp"
 #include "fmt/format.h"
+#include "utility/general/env.hpp"
 #include "utility/general/logging.hpp"
 
 namespace Dawn::Core {
 
 PokemonGoBaseAction::PokemonGoBaseAction()
-    : _api(External::TwitterAPI(std::getenv("TWITTER_ACCESS_TOKEN_KEY"),
-                                std::getenv("TWITTER_ACCESS_TOKEN_SECRET"),
-                                std::getenv("TWITTER_CONSUMER_KEY"),
-                                std::getenv("TWITTER_CONSUMER_SECRET")))
+    : _api(External::TwitterAPI(
+          Utility::SafeGetEnv("TWITTER_ACCESS_TOKEN_KEY"),
+          Utility::SafeGetEnv("TWITTER_ACCESS_TOKEN_SECRET"),
+          Utility::SafeGetEnv("TWITTER_CONSUMER_KEY"),
+          Utility::SafeGetEnv("TWITTER_CONSUMER_SECRET")))
 {
 }
 

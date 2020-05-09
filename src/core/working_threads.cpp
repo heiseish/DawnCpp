@@ -19,10 +19,8 @@ std::vector<std::thread> ThreadManager::PlatformThreads = {};
 void ThreadManager::StopAllThreads()
 {
     // terminate program
-#ifdef USE_LIBTELEGRAM
     DAWN_INFO("Stopping telegram");
     telegram::listener::poll::stop_all();
-#endif
     DAWN_INFO("Stopping all platform threads");
     for (auto& thread_ : ThreadManager::PlatformThreads)
         thread_.join();

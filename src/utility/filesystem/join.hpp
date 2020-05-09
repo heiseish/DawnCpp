@@ -20,11 +20,6 @@ using AllStrings = typename std::enable_if<
 
 }  // namespace
 
-// template <typename... Args, typename = AllStrings<Args...>>
-// fs::path _join(Args&&... args) {
-//     return fs::path(args) / ...;
-// }
-
 template <typename T, typename... Args, typename = AllStrings<Args...>>
 std::string PathJoin(const T& initial, Args&&... args)
 {

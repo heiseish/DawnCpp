@@ -17,7 +17,7 @@ TEST_F(ToIntTest, ToInt)
         FAIL() << "Expected std::out_of_range";
     }
     catch (std::out_of_range const& err) {
-        EXPECT_EQ(err.what(), std::string("stoi: out of range"));
+        EXPECT_EQ(err.what(), std::string("stoi"));
     }
     catch (...) {
         FAIL() << "Expected std::out_of_range";

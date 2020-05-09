@@ -13,23 +13,22 @@
 #include "utility/string/toint.hpp"
 
 #include "library/algorithm/string/kmp.hpp"
+#include "utility/general/env.hpp"
 #include "utility/string/replace.hpp"
+
 namespace Dawn::Core {
 
-#ifdef USE_LIBTELEGRAM
 TelegramPlatform::TelegramPlatform()
-    : _sender(std::getenv("TELEGRAM_TOKEN")),
-      _listener(_sender),
+    : _sender(Utility::SafeGetEnv("TELEGRAM_TOKEN")),
+      _listener(_sender, 5),
       _bot_name(*(_sender.get_me()->username))
 {
-#endif
     DAWN_INFO("Telegram bot name {}", _bot_name);
 }
 
 void TelegramPlatform::RegisterHooks()
 {
     DAWN_INFO("Telegram Bot registering hook...");
-#ifdef USE_LIBTELEGRAM
     _listener.set_callback_message(
         [this](telegram::types::message const& message) mutable {
             std::string text_msg_ = message.text ? *(message.text) : "";
@@ -60,7 +59,6 @@ void TelegramPlatform::RegisterHooks()
             this->_event_queue->emplace_back(std::move(msg_req));
         });
     _listener.run();
-#endif
 }
 
 void TelegramPlatform::Send(const UserInfo& user_info, const Message& message)
@@ -70,7 +68,6 @@ void TelegramPlatform::Send(const UserInfo& user_info, const Message& message)
         Utility::Timer timer_;
         timer_.Start();
         switch (res) {
-#ifdef USE_LIBTELEGRAM
             case MessageType::Text:
                 _sender.send_message(user_info.user_id,
                                      message.get<std::string>(),
@@ -117,7 +114,6 @@ void TelegramPlatform::Send(const UserInfo& user_info, const Message& message)
                                       false,
                                       user_info.message_id);
             }
-#endif
         }
         DAWN_INFO("[ Telegram ] Send message: {} ms",
                   timer_.Record<MilliSeconds>());

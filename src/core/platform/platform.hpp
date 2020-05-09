@@ -4,8 +4,6 @@
 #define CORE_PLATFORM_H
 
 #include <memory>
-
-#include "core/database/database.hpp"
 #include "core/platform/message.hpp"
 #include "core/platform/user_info.hpp"
 #include "message_request.hpp"
@@ -16,10 +14,6 @@ namespace Dawn::Core {
 class Platform {
 public:
     virtual ~Platform() = default;
-    void RegisterDatabase(std::shared_ptr<Database> database)
-    {
-        _database = database;
-    }
     void RegisterEventQueue(
         std::shared_ptr<Utility::SharedQueue<MessageRequest>> event_queue)
     {
@@ -30,7 +24,6 @@ public:
 
 protected:
     std::shared_ptr<Utility::SharedQueue<MessageRequest>> _event_queue;
-    std::shared_ptr<Database> _database;
 };
 
 }  // namespace Dawn::Core

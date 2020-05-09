@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include "gtest/gtest.h"
+#include "utility/general/env.hpp"
 namespace Dawn::External {
 
 class TwitterAPITesting : public ::testing::Test {
@@ -12,10 +13,10 @@ protected:
     {
         GTEST_SKIP();
         _api = std::make_unique<TwitterAPI>(
-            std::getenv("TWITTER_ACCESS_TOKEN_KEY"),
-            std::getenv("TWITTER_ACCESS_TOKEN_SECRET"),
-            std::getenv("TWITTER_CONSUMER_KEY"),
-            std::getenv("TWITTER_CONSUMER_SECRET"));
+            Utility::SafeGetEnv("TWITTER_ACCESS_TOKEN_KEY"),
+            Utility::SafeGetEnv("TWITTER_ACCESS_TOKEN_SECRET"),
+            Utility::SafeGetEnv("TWITTER_CONSUMER_KEY"),
+            Utility::SafeGetEnv("TWITTER_CONSUMER_SECRET"));
     }
 };
 

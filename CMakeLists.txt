@@ -8,7 +8,7 @@ endif()
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -std=c++20")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -std=c++2a")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -122,32 +122,5 @@ target_link_directories(
 )
 target_link_libraries(
     unittest
-        ${3RDPARTY_LIBRARIES}
-)
-
-# --- benchmark binary ---
-find_package(benchmark REQUIRED)
-add_executable(dawn_benchmark 
-   ${CMAKE_SOURCE_DIR}/benchmark/main.cpp
-   ${src_files}
-)
-target_include_directories(dawn_benchmark 
-    PUBLIC
-        ${3RDPARTY_INCLUDE_DIRS}
-        ${CMAKE_SOURCE_DIR}/src
-)
-target_compile_definitions(
-    dawn_benchmark 
-        PUBLIC 
-        ${COMPILE_DEFINITIONS}
-)
-target_link_directories(
-    dawn_benchmark
-        PUBLIC
-        ${CMAKE_BINARY_DIR}
-)
-target_link_libraries(dawn_benchmark 
-    PUBLIC
-        benchmark::benchmark
         ${3RDPARTY_LIBRARIES}
 )

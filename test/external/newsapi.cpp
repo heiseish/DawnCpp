@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include "gtest/gtest.h"
+#include "utility/general/env.hpp"
 namespace Dawn::External {
 
 class NewsAPITest : public ::testing::Test {
@@ -11,7 +12,7 @@ protected:
     virtual void SetUp()
     {
         GTEST_SKIP();
-        _api = std::make_unique<NewsAPI>(std::getenv("NEWSAPI_KEY"));
+        _api = std::make_unique<NewsAPI>(Utility::SafeGetEnv("NEWSAPI_KEY"));
     }
 };
 

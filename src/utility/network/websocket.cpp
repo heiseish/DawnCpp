@@ -171,7 +171,7 @@ void Websocket::ConnectEndpoint(Callback user_cb,
 {
     // Connect if we are not connected to the server.
     DAWN_INFO("WS Connecting to {}{}", endpoint, path);
-    struct lws_client_connect_info ccinfo = {0, .address = endpoint};
+    struct lws_client_connect_info ccinfo = {.context = 0, .address = endpoint};
     ccinfo.context = _context;
     ccinfo.port = port;
     ccinfo.path = path;

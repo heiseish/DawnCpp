@@ -9,7 +9,7 @@ class GetCurrentDirectoryTest : public ::testing::Test {
 TEST_F(GetCurrentDirectoryTest, GetCurrentDirectory)
 {
     auto res = GetCurrentWorkingDirectory();
-    EXPECT_EQ(res, "/Users/heiseish/Projects/DawnCpp/build");
+    EXPECT_EQ(res, "/home/heiseish/Projects/DawnCpp/build");
 }
 
 }  // namespace Dawn::Utility

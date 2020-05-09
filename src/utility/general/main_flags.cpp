@@ -2,10 +2,7 @@
 #include "absl/flags/flag.h"
 #include "absl/flags/parse.h"
 
-void InitArgs([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
-{
-    absl::ParseCommandLine(argc, argv);
-}
+void InitArgs(int argc, char** argv) { absl::ParseCommandLine(argc, argv); }
 
 ABSL_FLAG(std::string,
           config_folder,

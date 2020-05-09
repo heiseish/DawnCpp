@@ -5,6 +5,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/filewritestream.h"
 #include "utility/filesystem/join.hpp"
+#include "utility/general/env.hpp"
 #include "utility/general/logging.hpp"
 #include "utility/general/main_flags.hpp"
 #include "utility/network/websocket.hpp"
@@ -18,13 +19,15 @@ using namespace rapidjson;
 
 BinanceTrader::BinanceTrader(const BinanceTraderConfig& config) noexcept
     : _config(config),
-      _binance_api(std::getenv("BINANCE_KEY"), std::getenv("BINANCE_SECRET"))
+      _binance_api(Utility::SafeGetEnv("BINANCE_KEY"),
+                   Utility::SafeGetEnv("BINANCE_SECRET"))
 {
 }
 
 BinanceTrader::BinanceTrader(BinanceTraderConfig&& config) noexcept
     : _config(std::move(config)),
-      _binance_api(std::getenv("BINANCE_KEY"), std::getenv("BINANCE_SECRET"))
+      _binance_api(Utility::SafeGetEnv("BINANCE_KEY"),
+                   Utility::SafeGetEnv("BINANCE_SECRET"))
 {
 }
 

@@ -9,7 +9,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include "core/database/database.hpp"
 #include "core/nlp_engine/response.hpp"
 #include "core/platform/message_request.hpp"
 #include "core/platform/message_response.hpp"

@@ -3,14 +3,11 @@
 #include <thread>
 #include "core/nlp_engine/response.hpp"
 #include "core/platform/platform_types.hpp"
-#include "working_threads.hpp"
-
-#ifdef USE_LIBTELEGRAM
 #include "core/platform/telegram/tg_platform.hpp"
-#endif
 #include "delegate/Delegate.h"
 #include "utility/general/logging.hpp"
 #include "utility/general/timer.hpp"
+#include "working_threads.hpp"
 
 namespace Dawn::Core {
 
@@ -23,16 +20,15 @@ void dawn_signal_handler(int signal_num)
 
 Application::Application() {}
 Application::~Application() {}
+
 bool Application::Initialize()
 {
     try {
         _event_queue = std::make_shared<Utility::SharedQueue<MessageRequest>>();
         _response_queue =
             std::make_shared<Utility::SharedQueue<MessageResponse>>();
-#ifdef USE_LIBTELEGRAM
         _platforms.emplace(PlatformType::Telegram,
                            std::make_unique<TelegramPlatform>());
-#endif
         for (const auto& plt : _platforms) {
             plt.second->RegisterEventQueue(_event_queue);
         }
@@ -89,7 +85,8 @@ void Application::Start()
         Utility::WorkerThread<MessageResponse, decltype(res_delegate_)>>(
         "RespondingThread", res_delegate_instance_, _response_queue);
     ThreadManager::RespondingThread->CreateThread();
-    while (true) {}
+    while (true) {
+    }
 }
 
 }  // namespace Dawn::Core
