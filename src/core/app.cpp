@@ -45,8 +45,20 @@ void Application::process_request(MessageRequest msg_req)
 {
     Utility::Timer timer_;
     timer_.Start();
-    _response_queue->emplace_back(
-        _responder.GenerateResponse(std::move(msg_req)));
+    auto reply = _responder.GenerateResponse(std::move(msg_req));
+    for (auto& msg : reply.message) {
+        if (msg.isText()) {
+            try {
+                msg.set(MessageType::Audio,
+                        _tts_engine.ToSpeech(msg.get<std::string>()));
+            }
+            catch (const std::exception& e) {
+                DAWN_ERROR("Failed to convert text-to-speech for {}",
+                           msg.get<std::string>());
+            }
+        }
+    }
+    _response_queue->emplace_back(std::move(reply));
     DAWN_DEBUG("Processing took {} ms", timer_.Record<MilliSeconds>());
 }
 

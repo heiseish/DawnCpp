@@ -31,7 +31,19 @@ file(GLOB_RECURSE src_files
     "${CMAKE_CURRENT_SOURCE_DIR}/src/utility/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/external/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/trading/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/protos/*.cc"
 )
+
+# grpc
+set(protobuf_MODULE_COMPATIBLE TRUE)
+find_package(protobuf CONFIG REQUIRED)
+message(STATUS "Using protobuf ${protobuf_VERSION}")
+# list(APPEND 3RDPARTY_INCLUDE_DIRS "${Protobuf_INCLUDE_DIRS}")
+# list(APPEND 3RDPARTY_LIBRARIES ${Protobuf_LIBRARIES})
+
+find_package(gRPC CONFIG REQUIRED)
+message(STATUS "Using gRPC ${gRPC_VERSION}")
+# list(APPEND 3RDPARTY_LIBRARIES gRPC::grpc++)
 
 # --- main binary ---
 add_executable(DawnCpp 
@@ -44,6 +56,7 @@ target_include_directories(
         PUBLIC
         ${3RDPARTY_INCLUDE_DIRS}
         ${CMAKE_SOURCE_DIR}/src
+        "${Protobuf_INCLUDE_DIRS}"
 )
 target_compile_definitions(
     DawnCpp 
@@ -58,42 +71,9 @@ target_link_directories(
 target_link_libraries(
     DawnCpp
         ${3RDPARTY_LIBRARIES}
+        ${Protobuf_LIBRARIES}
+        gRPC::grpc++
 )
-
-#[[
-
-# ----- trading -----
-
-add_executable(DawnTrade 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/main_trading.cpp 
-    ${src_files}
-)
-
-target_include_directories(
-    DawnTrade
-        PUBLIC
-        ${3RDPARTY_INCLUDE_DIRS}
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-target_compile_definitions(
-    DawnTrade 
-        PUBLIC 
-        ${COMPILE_DEFINITIONS}
-)
-target_link_directories(
-    DawnTrade
-        PUBLIC
-        ${CMAKE_BINARY_DIR}
-)
-target_link_libraries(
-    DawnTrade
-        ${3RDPARTY_LIBRARIES}
-)
-
-
-]]
-
-
 
 # --- testing binary ---
 file(GLOB_RECURSE test_files
@@ -109,6 +89,7 @@ target_include_directories(
         PUBLIC
         ${3RDPARTY_INCLUDE_DIRS}
         ${CMAKE_SOURCE_DIR}/src
+        "${Protobuf_INCLUDE_DIRS}"
 )
 target_compile_definitions(
     unittest 
@@ -123,4 +104,6 @@ target_link_directories(
 target_link_libraries(
     unittest
         ${3RDPARTY_LIBRARIES}
+        ${Protobuf_LIBRARIES}
+        gRPC::grpc++
 )

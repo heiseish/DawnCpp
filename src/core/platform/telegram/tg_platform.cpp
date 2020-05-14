@@ -16,6 +16,9 @@
 #include "utility/general/env.hpp"
 #include "utility/string/replace.hpp"
 
+#include <httplib.h>
+#include "fmt/format.h"
+
 namespace Dawn::Core {
 
 TelegramPlatform::TelegramPlatform()
@@ -84,10 +87,8 @@ void TelegramPlatform::Send(const UserInfo& user_info, const Message& message)
                 break;
             }
             case MessageType::Audio: {
-                telegram::types::audio audo_file_;
-                audo_file_.file_id = message.get<std::string>();
-                _sender.send_audio(user_info.user_id,
-                                   std::move(audo_file_),
+                _sender.send_voice(user_info.user_id,
+                                   std::move(message.get<std::string>()),
                                    {},
                                    false,
                                    user_info.message_id);

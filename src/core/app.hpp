@@ -11,6 +11,7 @@
 #include "core/platform/message_response.hpp"
 #include "core/platform/platform.hpp"
 #include "core/platform/platform_types.hpp"
+#include "core/tts_engine/gtts_rpc_engine.hpp"
 #include "utility/general/shared_queue.hpp"
 
 namespace Dawn::Core {
@@ -36,6 +37,7 @@ private:
     EventQueue<MessageResponse> _response_queue;
     PlatformMap _platforms;
     TextResponder _responder;
+    GttsRPCEngine _tts_engine;
 };
 
 }  // namespace Dawn::Core
