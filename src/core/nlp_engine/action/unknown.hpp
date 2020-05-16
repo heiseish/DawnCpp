@@ -7,8 +7,8 @@
 #include "core/nlp_engine/action.hpp"
 #include "core/platform/message.hpp"
 #include "core/platform/message_request.hpp"
-#include "protos/seq2seq_service.grpc.pb.h"
-#include "protos/seq2seq_service.pb.h"
+#include "protos/py_rpc.grpc.pb.h"
+#include "protos/py_rpc.pb.h"
 #include "utility/general/logging.hpp"
 
 namespace Dawn::Core {
@@ -20,7 +20,7 @@ public:
 
 private:
     std::shared_ptr<grpc::Channel> _channel;
-    std::unique_ptr<Seq2SeqGRPC::Seq2SeqService::Stub> _stub;
+    std::unique_ptr<PyRPC::PyRPCService::Stub> _stub;
 };
 
 class UnknownBaseAction : public ActionExecuter {

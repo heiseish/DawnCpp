@@ -3,8 +3,8 @@
 #include <grpcpp/grpcpp.h>
 #include <string>
 #include "base_engine.hpp"
-#include "protos/text2speech_service.grpc.pb.h"
-#include "protos/text2speech_service.pb.h"
+#include "protos/py_rpc.grpc.pb.h"
+#include "protos/py_rpc.pb.h"
 
 namespace Dawn::Core {
 
@@ -15,7 +15,7 @@ public:
 
 private:
     std::shared_ptr<grpc::Channel> _channel;
-    std::unique_ptr<Text2SpeechRPC::Text2SpeechService::Stub> _stub;
+    std::unique_ptr<PyRPC::PyRPCService::Stub> _stub;
 };
 
 class GttsRPCEngine final : TextToSpeechBase {

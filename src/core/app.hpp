@@ -38,6 +38,7 @@ private:
     PlatformMap _platforms;
     TextResponder _responder;
     GttsRPCEngine _tts_engine;
+    bool _enable_tts;
 };
 
 }  // namespace Dawn::Core

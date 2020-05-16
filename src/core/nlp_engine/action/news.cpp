@@ -34,11 +34,6 @@ std::vector<Message> NewsBaseAction::Execute(MessageRequest&& request) const
         initial.set<std::string>(MessageType::Text,
                                  "Sorry I cannot get any news right now!");
     }
-    else {
-        initial.set<std::string>(MessageType::Text,
-                                 fmt::format("Hey {}, here are the top news:",
-                                             request.user_info.first_name));
-    }
     reply.emplace_back(std::move(initial));
     for (const auto& article : articles) {
         Message article_details;

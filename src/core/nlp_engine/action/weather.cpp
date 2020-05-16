@@ -28,11 +28,11 @@ std::vector<Message> WeatherBaseAction::Execute([
     else
         weather_details = _forecast_io.CurrentWeather();
     Message current_weather, summary_weather;
-    auto current_weather_str = fmt::format(
-        "Hey {}, {}", request.user_info.first_name, weather_details.current);
+    auto current_weather_str = fmt::format("Hey {}, {}. {}",
+                                           request.user_info.first_name,
+                                           weather_details.current,
+                                           weather_details.summary);
     current_weather.set<std::string>(MessageType::Text, current_weather_str);
-    summary_weather.set<std::string>(MessageType::Text,
-                                     weather_details.summary);
 
     reply.emplace_back(std::move(current_weather));
     reply.emplace_back(std::move(summary_weather));

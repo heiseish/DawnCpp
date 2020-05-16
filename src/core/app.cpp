@@ -1,6 +1,8 @@
 #include "app.hpp"
+#include <future>
 #include <memory>
 #include <thread>
+#include "config.hpp"
 #include "core/nlp_engine/response.hpp"
 #include "core/platform/platform_types.hpp"
 #include "core/platform/telegram/tg_platform.hpp"
@@ -18,7 +20,10 @@ void dawn_signal_handler(int signal_num)
     exit(signal_num);
 }
 
-Application::Application() {}
+Application::Application()
+    : _enable_tts(Config::Instance()->Get<bool>("textToSpeech"))
+{
+}
 Application::~Application() {}
 
 bool Application::Initialize()
@@ -47,15 +52,15 @@ void Application::process_request(MessageRequest msg_req)
     timer_.Start();
     auto reply = _responder.GenerateResponse(std::move(msg_req));
     for (auto& msg : reply.message) {
-        if (msg.isText()) {
-            try {
-                msg.set(MessageType::Audio,
-                        _tts_engine.ToSpeech(msg.get<std::string>()));
-            }
-            catch (const std::exception& e) {
-                DAWN_ERROR("Failed to convert text-to-speech for {}",
-                           msg.get<std::string>());
-            }
+        if (!_enable_tts || !msg.isText())
+            continue;
+        try {
+            msg.set(MessageType::Audio,
+                    _tts_engine.ToSpeech(msg.get<std::string>()));
+        }
+        catch (const std::exception& e) {
+            DAWN_ERROR("Failed to convert text-to-speech for {}",
+                       msg.get<std::string>());
         }
     }
     _response_queue->emplace_back(std::move(reply));
@@ -64,12 +69,15 @@ void Application::process_request(MessageRequest msg_req)
 
 void Application::respond(MessageResponse msg_res)
 {
-    Utility::Timer timer_;
-    timer_.Start();
+    std::vector<std::future<void>> pending_futures;
     for (const auto& msg : msg_res.message) {
-        _platforms.at(msg_res.platform_type)->Send(msg_res.user_info, msg);
+        auto f = std::async(std::launch::async,
+                            &Platform::Send,
+                            _platforms.at(msg_res.platform_type).get(),
+                            msg_res.user_info,
+                            msg);
+        pending_futures.push_back(std::move(f));
     }
-    DAWN_DEBUG("Responding took {} ms", timer_.Record<MilliSeconds>());
 }
 
 void Application::Start()

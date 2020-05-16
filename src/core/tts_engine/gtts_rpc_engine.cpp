@@ -2,8 +2,8 @@
 #include "gtts_rpc_engine.hpp"
 #include <grpcpp/grpcpp.h>
 #include <string>
-#include "protos/seq2seq_service.grpc.pb.h"
-#include "protos/seq2seq_service.pb.h"
+#include "protos/py_rpc.grpc.pb.h"
+#include "protos/py_rpc.pb.h"
 #include "utility/general/logging.hpp"
 
 namespace {
@@ -11,9 +11,9 @@ namespace {
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-using Text2SpeechRPC::Text2SpeechService;
-using Text2SpeechRPC::TTSInput;
-using Text2SpeechRPC::TTSOutput;
+using PyRPC::PyRPCService;
+using PyRPC::TTSInput;
+using PyRPC::TTSOutput;
 
 }  // namespace
 
@@ -23,7 +23,7 @@ GttsClient::GttsClient(const std::string server_addr)
 {
     _channel =
         grpc::CreateChannel(server_addr, grpc::InsecureChannelCredentials());
-    _stub = Text2SpeechService::NewStub(_channel);
+    _stub = PyRPCService::NewStub(_channel);
 }
 
 std::string GttsClient::TextToSpeech(const std::string& text,

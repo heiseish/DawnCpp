@@ -7,18 +7,18 @@
 #include "core/platform/message_request.hpp"
 
 #include "fmt/format.h"
-#include "protos/seq2seq_service.grpc.pb.h"
-#include "protos/seq2seq_service.pb.h"
+#include "protos/py_rpc.grpc.pb.h"
+#include "protos/py_rpc.pb.h"
 
 namespace {
 
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-using Seq2SeqGRPC::ConversationInput;
-using Seq2SeqGRPC::ConversationResponse;
-using Seq2SeqGRPC::ConversationResponse_State;
-using Seq2SeqGRPC::Seq2SeqService;
+using PyRPC::ConversationInput;
+using PyRPC::ConversationResponse;
+using PyRPC::ConversationResponse_State;
+using PyRPC::PyRPCService;
 
 }  // namespace
 
@@ -28,7 +28,7 @@ GPTClient::GPTClient(const std::string server_addr)
 {
     _channel =
         grpc::CreateChannel(server_addr, grpc::InsecureChannelCredentials());
-    _stub = Seq2SeqService::NewStub(_channel);
+    _stub = PyRPCService::NewStub(_channel);
 }
 
 std::string GPTClient::Respond(const std::string& input_text) const

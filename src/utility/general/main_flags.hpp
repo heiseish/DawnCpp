@@ -9,6 +9,7 @@
 void InitArgs(int argc, char** argv);
 
 ABSL_DECLARE_FLAG(std::string, config_folder);
+ABSL_DECLARE_FLAG(std::string, config_file);
 ABSL_DECLARE_FLAG(std::string, data_folder);
 
 #endif

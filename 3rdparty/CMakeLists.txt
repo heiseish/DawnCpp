@@ -9,7 +9,7 @@ set(TWITCURL_SRC ${CMAKE_CURRENT_SOURCE_DIR}/twitcurl)
 set(SPDLOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/spdlog)
 set(LIBWEBSOCKETS_CMAKE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindLibWebsockets.cmake)
 set(ABSEIL_SRC ${CMAKE_CURRENT_SOURCE_DIR}/abseil)
-set(GRPC_SRC ${CMAKE_CURRENT_SOURCE_DIR}/grpc)
+set(NLOHMANN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/nlohmann)
 
 
 set(3RDPARTY_INCLUDE_DIRS)
@@ -115,12 +115,17 @@ endif()
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 if(USE_ABSEIL STREQUAL "ON")
     message(STATUS "Abseil source dir ${ABSEIL_SRC}")
+    set(BUILD_TESTING "OFF")
     add_subdirectory(${ABSEIL_SRC})
     list(APPEND 3RDPARTY_INCLUDE_DIRS "${ABSEIL_SRC}")
     list(APPEND 3RDPARTY_LIBRARIES absl::base absl::synchronization absl::strings absl::flags absl::flags_parse
         absl::flat_hash_map)
     set(3RDPARTY_COMPILE_DEFINITIONS "${3RDPARTY_COMPILE_DEFINITIONS};USE_ABSEIL")
 endif()
+
+# nlohmann
+add_subdirectory(${NLOHMANN_SRC})
+list(APPEND 3RDPARTY_LIBRARIES nlohmann_json::nlohmann_json)
 
 
 set(3RDPARTY_INCLUDE_DIRS ${3RDPARTY_INCLUDE_DIRS} PARENT_SCOPE)

@@ -10,6 +10,11 @@ ABSL_FLAG(std::string,
           "Path to folder containing the config json");
 
 ABSL_FLAG(std::string,
+          config_file,
+          "",
+          "Path to main application config json file");
+
+ABSL_FLAG(std::string,
           data_folder,
           "",
           "Path to folder containing the excahnge json");

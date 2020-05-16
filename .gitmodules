@@ -16,3 +16,6 @@
 [submodule "3rdparty/libtelegram"]
 	path = 3rdparty/libtelegram
 	url = git@github.com:heiseish/libtelegram.git
+[submodule "3rdparty/nlohmann"]
+	path = 3rdparty/nlohmann
+	url = git@github.com:nlohmann/json.git

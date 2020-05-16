@@ -35,15 +35,8 @@ case $key in
     -rb|--run_binary)
     echo "Running binary"
     set -a # automatically export all variables
-    source .env && cd build && ./DawnCpp --config_folder=$PWD/../config --data_folder=$PWD/../data
-    set +a
-    shift # past argument
-    shift # past value
-    ;;
-    -tr|--trading)
-    echo "Running trading binary"
-    set -a # automatically export all variables
-    source .env && cd build && ./DawnTrade --config_folder=$PWD/../config --data_folder=$PWD/../data
+    source .env && cd build && ./DawnCpp --config_folder=$PWD/../config \
+        --config_file=$PWD/../config/config.json --data_folder=$PWD/../data
     set +a
     shift # past argument
     shift # past value
@@ -51,7 +44,7 @@ case $key in
     -rt|--run_test)
     echo "Running test"
     set -a # automatically export all variables
-    source .env && cd build && ./unittest
+    source .env && cd build && ./unittest 
     set +a
     shift # past argument
     shift # past value
