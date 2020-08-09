@@ -48,7 +48,7 @@ struct TableStruct_py_5frpc_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -62,6 +62,12 @@ extern ConversationInputDefaultTypeInternal _ConversationInput_default_instance_
 class ConversationResponse;
 class ConversationResponseDefaultTypeInternal;
 extern ConversationResponseDefaultTypeInternal _ConversationResponse_default_instance_;
+class STTInput;
+class STTInputDefaultTypeInternal;
+extern STTInputDefaultTypeInternal _STTInput_default_instance_;
+class STTOutput;
+class STTOutputDefaultTypeInternal;
+extern STTOutputDefaultTypeInternal _STTOutput_default_instance_;
 class TTSInput;
 class TTSInputDefaultTypeInternal;
 extern TTSInputDefaultTypeInternal _TTSInput_default_instance_;
@@ -72,6 +78,8 @@ extern TTSOutputDefaultTypeInternal _TTSOutput_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::PyRPC::ConversationInput* Arena::CreateMaybeMessage<::PyRPC::ConversationInput>(Arena*);
 template<> ::PyRPC::ConversationResponse* Arena::CreateMaybeMessage<::PyRPC::ConversationResponse>(Arena*);
+template<> ::PyRPC::STTInput* Arena::CreateMaybeMessage<::PyRPC::STTInput>(Arena*);
+template<> ::PyRPC::STTOutput* Arena::CreateMaybeMessage<::PyRPC::STTOutput>(Arena*);
 template<> ::PyRPC::TTSInput* Arena::CreateMaybeMessage<::PyRPC::TTSInput>(Arena*);
 template<> ::PyRPC::TTSOutput* Arena::CreateMaybeMessage<::PyRPC::TTSOutput>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -393,6 +401,294 @@ class TTSOutput :
 };
 // -------------------------------------------------------------------
 
+class STTInput :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:PyRPC.STTInput) */ {
+ public:
+  STTInput();
+  virtual ~STTInput();
+
+  STTInput(const STTInput& from);
+  STTInput(STTInput&& from) noexcept
+    : STTInput() {
+    *this = ::std::move(from);
+  }
+
+  inline STTInput& operator=(const STTInput& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline STTInput& operator=(STTInput&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const STTInput& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const STTInput* internal_default_instance() {
+    return reinterpret_cast<const STTInput*>(
+               &_STTInput_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(STTInput& a, STTInput& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(STTInput* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline STTInput* New() const final {
+    return CreateMaybeMessage<STTInput>(nullptr);
+  }
+
+  STTInput* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<STTInput>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const STTInput& from);
+  void MergeFrom(const STTInput& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(STTInput* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "PyRPC.STTInput";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_py_5frpc_2eproto);
+    return ::descriptor_table_py_5frpc_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDataFieldNumber = 1,
+  };
+  // bytes data = 1;
+  void clear_data();
+  const std::string& data() const;
+  void set_data(const std::string& value);
+  void set_data(std::string&& value);
+  void set_data(const char* value);
+  void set_data(const void* value, size_t size);
+  std::string* mutable_data();
+  std::string* release_data();
+  void set_allocated_data(std::string* data);
+  private:
+  const std::string& _internal_data() const;
+  void _internal_set_data(const std::string& value);
+  std::string* _internal_mutable_data();
+  public:
+
+  // @@protoc_insertion_point(class_scope:PyRPC.STTInput)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_py_5frpc_2eproto;
+};
+// -------------------------------------------------------------------
+
+class STTOutput :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:PyRPC.STTOutput) */ {
+ public:
+  STTOutput();
+  virtual ~STTOutput();
+
+  STTOutput(const STTOutput& from);
+  STTOutput(STTOutput&& from) noexcept
+    : STTOutput() {
+    *this = ::std::move(from);
+  }
+
+  inline STTOutput& operator=(const STTOutput& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline STTOutput& operator=(STTOutput&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const STTOutput& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const STTOutput* internal_default_instance() {
+    return reinterpret_cast<const STTOutput*>(
+               &_STTOutput_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(STTOutput& a, STTOutput& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(STTOutput* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline STTOutput* New() const final {
+    return CreateMaybeMessage<STTOutput>(nullptr);
+  }
+
+  STTOutput* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<STTOutput>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const STTOutput& from);
+  void MergeFrom(const STTOutput& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(STTOutput* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "PyRPC.STTOutput";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_py_5frpc_2eproto);
+    return ::descriptor_table_py_5frpc_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTextFieldNumber = 1,
+    kLangFieldNumber = 2,
+  };
+  // string text = 1;
+  void clear_text();
+  const std::string& text() const;
+  void set_text(const std::string& value);
+  void set_text(std::string&& value);
+  void set_text(const char* value);
+  void set_text(const char* value, size_t size);
+  std::string* mutable_text();
+  std::string* release_text();
+  void set_allocated_text(std::string* text);
+  private:
+  const std::string& _internal_text() const;
+  void _internal_set_text(const std::string& value);
+  std::string* _internal_mutable_text();
+  public:
+
+  // string lang = 2;
+  void clear_lang();
+  const std::string& lang() const;
+  void set_lang(const std::string& value);
+  void set_lang(std::string&& value);
+  void set_lang(const char* value);
+  void set_lang(const char* value, size_t size);
+  std::string* mutable_lang();
+  std::string* release_lang();
+  void set_allocated_lang(std::string* lang);
+  private:
+  const std::string& _internal_lang() const;
+  void _internal_set_lang(const std::string& value);
+  std::string* _internal_mutable_lang();
+  public:
+
+  // @@protoc_insertion_point(class_scope:PyRPC.STTOutput)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr lang_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_py_5frpc_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ConversationInput :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:PyRPC.ConversationInput) */ {
  public:
@@ -435,7 +731,7 @@ class ConversationInput :
                &_ConversationInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(ConversationInput& a, ConversationInput& b) {
     a.Swap(&b);
@@ -588,7 +884,7 @@ class ConversationResponse :
                &_ConversationResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(ConversationResponse& a, ConversationResponse& b) {
     a.Swap(&b);
@@ -937,6 +1233,194 @@ inline void TTSOutput::set_allocated_data(std::string* data) {
 
 // -------------------------------------------------------------------
 
+// STTInput
+
+// bytes data = 1;
+inline void STTInput::clear_data() {
+  data_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& STTInput::data() const {
+  // @@protoc_insertion_point(field_get:PyRPC.STTInput.data)
+  return _internal_data();
+}
+inline void STTInput::set_data(const std::string& value) {
+  _internal_set_data(value);
+  // @@protoc_insertion_point(field_set:PyRPC.STTInput.data)
+}
+inline std::string* STTInput::mutable_data() {
+  // @@protoc_insertion_point(field_mutable:PyRPC.STTInput.data)
+  return _internal_mutable_data();
+}
+inline const std::string& STTInput::_internal_data() const {
+  return data_.GetNoArena();
+}
+inline void STTInput::_internal_set_data(const std::string& value) {
+  
+  data_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void STTInput::set_data(std::string&& value) {
+  
+  data_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PyRPC.STTInput.data)
+}
+inline void STTInput::set_data(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  data_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PyRPC.STTInput.data)
+}
+inline void STTInput::set_data(const void* value, size_t size) {
+  
+  data_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PyRPC.STTInput.data)
+}
+inline std::string* STTInput::_internal_mutable_data() {
+  
+  return data_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* STTInput::release_data() {
+  // @@protoc_insertion_point(field_release:PyRPC.STTInput.data)
+  
+  return data_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void STTInput::set_allocated_data(std::string* data) {
+  if (data != nullptr) {
+    
+  } else {
+    
+  }
+  data_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data);
+  // @@protoc_insertion_point(field_set_allocated:PyRPC.STTInput.data)
+}
+
+// -------------------------------------------------------------------
+
+// STTOutput
+
+// string text = 1;
+inline void STTOutput::clear_text() {
+  text_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& STTOutput::text() const {
+  // @@protoc_insertion_point(field_get:PyRPC.STTOutput.text)
+  return _internal_text();
+}
+inline void STTOutput::set_text(const std::string& value) {
+  _internal_set_text(value);
+  // @@protoc_insertion_point(field_set:PyRPC.STTOutput.text)
+}
+inline std::string* STTOutput::mutable_text() {
+  // @@protoc_insertion_point(field_mutable:PyRPC.STTOutput.text)
+  return _internal_mutable_text();
+}
+inline const std::string& STTOutput::_internal_text() const {
+  return text_.GetNoArena();
+}
+inline void STTOutput::_internal_set_text(const std::string& value) {
+  
+  text_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void STTOutput::set_text(std::string&& value) {
+  
+  text_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PyRPC.STTOutput.text)
+}
+inline void STTOutput::set_text(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  text_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PyRPC.STTOutput.text)
+}
+inline void STTOutput::set_text(const char* value, size_t size) {
+  
+  text_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PyRPC.STTOutput.text)
+}
+inline std::string* STTOutput::_internal_mutable_text() {
+  
+  return text_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* STTOutput::release_text() {
+  // @@protoc_insertion_point(field_release:PyRPC.STTOutput.text)
+  
+  return text_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void STTOutput::set_allocated_text(std::string* text) {
+  if (text != nullptr) {
+    
+  } else {
+    
+  }
+  text_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), text);
+  // @@protoc_insertion_point(field_set_allocated:PyRPC.STTOutput.text)
+}
+
+// string lang = 2;
+inline void STTOutput::clear_lang() {
+  lang_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& STTOutput::lang() const {
+  // @@protoc_insertion_point(field_get:PyRPC.STTOutput.lang)
+  return _internal_lang();
+}
+inline void STTOutput::set_lang(const std::string& value) {
+  _internal_set_lang(value);
+  // @@protoc_insertion_point(field_set:PyRPC.STTOutput.lang)
+}
+inline std::string* STTOutput::mutable_lang() {
+  // @@protoc_insertion_point(field_mutable:PyRPC.STTOutput.lang)
+  return _internal_mutable_lang();
+}
+inline const std::string& STTOutput::_internal_lang() const {
+  return lang_.GetNoArena();
+}
+inline void STTOutput::_internal_set_lang(const std::string& value) {
+  
+  lang_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void STTOutput::set_lang(std::string&& value) {
+  
+  lang_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PyRPC.STTOutput.lang)
+}
+inline void STTOutput::set_lang(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  lang_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PyRPC.STTOutput.lang)
+}
+inline void STTOutput::set_lang(const char* value, size_t size) {
+  
+  lang_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PyRPC.STTOutput.lang)
+}
+inline std::string* STTOutput::_internal_mutable_lang() {
+  
+  return lang_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* STTOutput::release_lang() {
+  // @@protoc_insertion_point(field_release:PyRPC.STTOutput.lang)
+  
+  return lang_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void STTOutput::set_allocated_lang(std::string* lang) {
+  if (lang != nullptr) {
+    
+  } else {
+    
+  }
+  lang_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), lang);
+  // @@protoc_insertion_point(field_set_allocated:PyRPC.STTOutput.lang)
+}
+
+// -------------------------------------------------------------------
+
 // ConversationInput
 
 // string trans_id = 1;
@@ -1206,6 +1690,10 @@ inline void ConversationResponse::set_allocated_text(std::string* text) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

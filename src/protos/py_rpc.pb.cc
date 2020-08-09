@@ -23,6 +23,14 @@ class TTSOutputDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<TTSOutput> _instance;
 } _TTSOutput_default_instance_;
+class STTInputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<STTInput> _instance;
+} _STTInput_default_instance_;
+class STTOutputDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<STTOutput> _instance;
+} _STTOutput_default_instance_;
 class ConversationInputDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ConversationInput> _instance;
@@ -60,6 +68,34 @@ static void InitDefaultsscc_info_ConversationResponse_py_5frpc_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ConversationResponse_py_5frpc_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ConversationResponse_py_5frpc_2eproto}, {}};
 
+static void InitDefaultsscc_info_STTInput_py_5frpc_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::PyRPC::_STTInput_default_instance_;
+    new (ptr) ::PyRPC::STTInput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::PyRPC::STTInput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_STTInput_py_5frpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_STTInput_py_5frpc_2eproto}, {}};
+
+static void InitDefaultsscc_info_STTOutput_py_5frpc_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::PyRPC::_STTOutput_default_instance_;
+    new (ptr) ::PyRPC::STTOutput();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::PyRPC::STTOutput::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_STTOutput_py_5frpc_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_STTOutput_py_5frpc_2eproto}, {}};
+
 static void InitDefaultsscc_info_TTSInput_py_5frpc_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -88,7 +124,7 @@ static void InitDefaultsscc_info_TTSOutput_py_5frpc_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_TTSOutput_py_5frpc_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_TTSOutput_py_5frpc_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_py_5frpc_2eproto[4];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_py_5frpc_2eproto[6];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_py_5frpc_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_py_5frpc_2eproto = nullptr;
 
@@ -106,6 +142,19 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_py_5frpc_2eproto::offsets[] PR
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::PyRPC::TTSOutput, data_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::PyRPC::STTInput, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::PyRPC::STTInput, data_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::PyRPC::STTOutput, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::PyRPC::STTOutput, text_),
+  PROTOBUF_FIELD_OFFSET(::PyRPC::STTOutput, lang_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::PyRPC::ConversationInput, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -125,13 +174,17 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_py_5frpc_2eproto::offsets[] PR
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::PyRPC::TTSInput)},
   { 7, -1, sizeof(::PyRPC::TTSOutput)},
-  { 13, -1, sizeof(::PyRPC::ConversationInput)},
-  { 20, -1, sizeof(::PyRPC::ConversationResponse)},
+  { 13, -1, sizeof(::PyRPC::STTInput)},
+  { 19, -1, sizeof(::PyRPC::STTOutput)},
+  { 26, -1, sizeof(::PyRPC::ConversationInput)},
+  { 33, -1, sizeof(::PyRPC::ConversationResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::PyRPC::_TTSInput_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::PyRPC::_TTSOutput_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::PyRPC::_STTInput_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::PyRPC::_STTOutput_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::PyRPC::_ConversationInput_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::PyRPC::_ConversationResponse_default_instance_),
 };
@@ -139,32 +192,37 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_py_5frpc_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\014py_rpc.proto\022\005PyRPC\"&\n\010TTSInput\022\014\n\004tex"
   "t\030\001 \001(\t\022\014\n\004lang\030\002 \001(\t\"\031\n\tTTSOutput\022\014\n\004da"
-  "ta\030\001 \001(\014\"3\n\021ConversationInput\022\020\n\010trans_i"
-  "d\030\001 \001(\t\022\014\n\004text\030\002 \001(\t\"\232\001\n\024ConversationRe"
-  "sponse\022\020\n\010trans_id\030\001 \001(\t\0220\n\005state\030\002 \001(\0162"
-  "!.PyRPC.ConversationResponse.State\022\014\n\004te"
-  "xt\030\003 \001(\t\"0\n\005State\022\013\n\007SUCCESS\020\000\022\r\n\tMODEL_"
-  "ERR\020\001\022\013\n\007UNKNOWN\020\0022\211\001\n\014PyRPCService\0221\n\014T"
-  "extToSpeech\022\017.PyRPC.TTSInput\032\020.PyRPC.TTS"
-  "Output\022F\n\rRespondToText\022\030.PyRPC.Conversa"
-  "tionInput\032\033.PyRPC.ConversationResponseB\006"
-  "\242\002\003RTGb\006proto3"
+  "ta\030\001 \001(\014\"\030\n\010STTInput\022\014\n\004data\030\001 \001(\014\"\'\n\tST"
+  "TOutput\022\014\n\004text\030\001 \001(\t\022\014\n\004lang\030\002 \001(\t\"3\n\021C"
+  "onversationInput\022\020\n\010trans_id\030\001 \001(\t\022\014\n\004te"
+  "xt\030\002 \001(\t\"\232\001\n\024ConversationResponse\022\020\n\010tra"
+  "ns_id\030\001 \001(\t\0220\n\005state\030\002 \001(\0162!.PyRPC.Conve"
+  "rsationResponse.State\022\014\n\004text\030\003 \001(\t\"0\n\005S"
+  "tate\022\013\n\007SUCCESS\020\000\022\r\n\tMODEL_ERR\020\001\022\013\n\007UNKN"
+  "OWN\020\0022\274\001\n\014PyRPCService\0221\n\014TextToSpeech\022\017"
+  ".PyRPC.TTSInput\032\020.PyRPC.TTSOutput\0221\n\014Spe"
+  "echToText\022\017.PyRPC.STTInput\032\020.PyRPC.STTOu"
+  "tput\022F\n\rRespondToText\022\030.PyRPC.Conversati"
+  "onInput\032\033.PyRPC.ConversationResponseB\006\242\002"
+  "\003RTGb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_py_5frpc_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_py_5frpc_2eproto_sccs[4] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_py_5frpc_2eproto_sccs[6] = {
   &scc_info_ConversationInput_py_5frpc_2eproto.base,
   &scc_info_ConversationResponse_py_5frpc_2eproto.base,
+  &scc_info_STTInput_py_5frpc_2eproto.base,
+  &scc_info_STTOutput_py_5frpc_2eproto.base,
   &scc_info_TTSInput_py_5frpc_2eproto.base,
   &scc_info_TTSOutput_py_5frpc_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_py_5frpc_2eproto_once;
 static bool descriptor_table_py_5frpc_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_py_5frpc_2eproto = {
-  &descriptor_table_py_5frpc_2eproto_initialized, descriptor_table_protodef_py_5frpc_2eproto, "py_rpc.proto", 454,
-  &descriptor_table_py_5frpc_2eproto_once, descriptor_table_py_5frpc_2eproto_sccs, descriptor_table_py_5frpc_2eproto_deps, 4, 0,
+  &descriptor_table_py_5frpc_2eproto_initialized, descriptor_table_protodef_py_5frpc_2eproto, "py_rpc.proto", 572,
+  &descriptor_table_py_5frpc_2eproto_once, descriptor_table_py_5frpc_2eproto_sccs, descriptor_table_py_5frpc_2eproto_deps, 6, 0,
   schemas, file_default_instances, TableStruct_py_5frpc_2eproto::offsets,
-  file_level_metadata_py_5frpc_2eproto, 4, file_level_enum_descriptors_py_5frpc_2eproto, file_level_service_descriptors_py_5frpc_2eproto,
+  file_level_metadata_py_5frpc_2eproto, 6, file_level_enum_descriptors_py_5frpc_2eproto, file_level_service_descriptors_py_5frpc_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -622,6 +680,438 @@ void TTSOutput::InternalSwap(TTSOutput* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TTSOutput::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void STTInput::InitAsDefaultInstance() {
+}
+class STTInput::_Internal {
+ public:
+};
+
+STTInput::STTInput()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:PyRPC.STTInput)
+}
+STTInput::STTInput(const STTInput& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_data().empty()) {
+    data_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.data_);
+  }
+  // @@protoc_insertion_point(copy_constructor:PyRPC.STTInput)
+}
+
+void STTInput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_STTInput_py_5frpc_2eproto.base);
+  data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+STTInput::~STTInput() {
+  // @@protoc_insertion_point(destructor:PyRPC.STTInput)
+  SharedDtor();
+}
+
+void STTInput::SharedDtor() {
+  data_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void STTInput::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const STTInput& STTInput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_STTInput_py_5frpc_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void STTInput::Clear() {
+// @@protoc_insertion_point(message_clear_start:PyRPC.STTInput)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  data_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* STTInput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bytes data = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_data();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* STTInput::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PyRPC.STTInput)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes data = 1;
+  if (this->data().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_data(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PyRPC.STTInput)
+  return target;
+}
+
+size_t STTInput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PyRPC.STTInput)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bytes data = 1;
+  if (this->data().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_data());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void STTInput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PyRPC.STTInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const STTInput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<STTInput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PyRPC.STTInput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PyRPC.STTInput)
+    MergeFrom(*source);
+  }
+}
+
+void STTInput::MergeFrom(const STTInput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PyRPC.STTInput)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.data().size() > 0) {
+
+    data_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.data_);
+  }
+}
+
+void STTInput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PyRPC.STTInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void STTInput::CopyFrom(const STTInput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PyRPC.STTInput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool STTInput::IsInitialized() const {
+  return true;
+}
+
+void STTInput::InternalSwap(STTInput* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  data_.Swap(&other->data_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata STTInput::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void STTOutput::InitAsDefaultInstance() {
+}
+class STTOutput::_Internal {
+ public:
+};
+
+STTOutput::STTOutput()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:PyRPC.STTOutput)
+}
+STTOutput::STTOutput(const STTOutput& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_text().empty()) {
+    text_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.text_);
+  }
+  lang_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_lang().empty()) {
+    lang_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.lang_);
+  }
+  // @@protoc_insertion_point(copy_constructor:PyRPC.STTOutput)
+}
+
+void STTOutput::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_STTOutput_py_5frpc_2eproto.base);
+  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  lang_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+STTOutput::~STTOutput() {
+  // @@protoc_insertion_point(destructor:PyRPC.STTOutput)
+  SharedDtor();
+}
+
+void STTOutput::SharedDtor() {
+  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  lang_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void STTOutput::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const STTOutput& STTOutput::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_STTOutput_py_5frpc_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void STTOutput::Clear() {
+// @@protoc_insertion_point(message_clear_start:PyRPC.STTOutput)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  text_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  lang_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* STTOutput::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string text = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_text();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "PyRPC.STTOutput.text"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string lang = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_lang();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "PyRPC.STTOutput.lang"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* STTOutput::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:PyRPC.STTOutput)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string text = 1;
+  if (this->text().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_text().data(), static_cast<int>(this->_internal_text().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "PyRPC.STTOutput.text");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_text(), target);
+  }
+
+  // string lang = 2;
+  if (this->lang().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_lang().data(), static_cast<int>(this->_internal_lang().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "PyRPC.STTOutput.lang");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_lang(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:PyRPC.STTOutput)
+  return target;
+}
+
+size_t STTOutput::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PyRPC.STTOutput)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string text = 1;
+  if (this->text().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_text());
+  }
+
+  // string lang = 2;
+  if (this->lang().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_lang());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void STTOutput::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PyRPC.STTOutput)
+  GOOGLE_DCHECK_NE(&from, this);
+  const STTOutput* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<STTOutput>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PyRPC.STTOutput)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PyRPC.STTOutput)
+    MergeFrom(*source);
+  }
+}
+
+void STTOutput::MergeFrom(const STTOutput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PyRPC.STTOutput)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.text().size() > 0) {
+
+    text_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.text_);
+  }
+  if (from.lang().size() > 0) {
+
+    lang_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.lang_);
+  }
+}
+
+void STTOutput::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PyRPC.STTOutput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void STTOutput::CopyFrom(const STTOutput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PyRPC.STTOutput)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool STTOutput::IsInitialized() const {
+  return true;
+}
+
+void STTOutput::InternalSwap(STTOutput* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  text_.Swap(&other->text_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  lang_.Swap(&other->lang_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata STTOutput::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -1138,6 +1628,12 @@ template<> PROTOBUF_NOINLINE ::PyRPC::TTSInput* Arena::CreateMaybeMessage< ::PyR
 }
 template<> PROTOBUF_NOINLINE ::PyRPC::TTSOutput* Arena::CreateMaybeMessage< ::PyRPC::TTSOutput >(Arena* arena) {
   return Arena::CreateInternal< ::PyRPC::TTSOutput >(arena);
+}
+template<> PROTOBUF_NOINLINE ::PyRPC::STTInput* Arena::CreateMaybeMessage< ::PyRPC::STTInput >(Arena* arena) {
+  return Arena::CreateInternal< ::PyRPC::STTInput >(arena);
+}
+template<> PROTOBUF_NOINLINE ::PyRPC::STTOutput* Arena::CreateMaybeMessage< ::PyRPC::STTOutput >(Arena* arena) {
+  return Arena::CreateInternal< ::PyRPC::STTOutput >(arena);
 }
 template<> PROTOBUF_NOINLINE ::PyRPC::ConversationInput* Arena::CreateMaybeMessage< ::PyRPC::ConversationInput >(Arena* arena) {
   return Arena::CreateInternal< ::PyRPC::ConversationInput >(arena);

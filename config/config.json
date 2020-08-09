@@ -1,5 +1,5 @@
 {
-    "textToSpeech": false,
+    "textToSpeech": true,
     "test1": {
         "test2": {
             "test3": 6969

@@ -5,6 +5,7 @@ package PyRPC;
 
 service PyRPCService {
 	rpc TextToSpeech (TTSInput) returns (TTSOutput);
+    rpc SpeechToText (STTInput) returns (STTOutput);
     rpc RespondToText (ConversationInput) returns (ConversationResponse);
 }
 
@@ -16,6 +17,17 @@ message TTSInput {
 message TTSOutput {
 	bytes data = 1;
 }
+
+message STTInput {
+    bytes data = 1;
+}
+
+message STTOutput {
+	string text = 1;
+	string lang = 2;
+}
+
+
 
 message ConversationInput {
 	string trans_id = 1;

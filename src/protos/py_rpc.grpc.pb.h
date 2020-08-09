@@ -43,6 +43,13 @@ class PyRPCService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::TTSOutput>> PrepareAsyncTextToSpeech(::grpc::ClientContext* context, const ::PyRPC::TTSInput& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::TTSOutput>>(PrepareAsyncTextToSpeechRaw(context, request, cq));
     }
+    virtual ::grpc::Status SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::PyRPC::STTOutput* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::STTOutput>> AsyncSpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::STTOutput>>(AsyncSpeechToTextRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::STTOutput>> PrepareAsyncSpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::STTOutput>>(PrepareAsyncSpeechToTextRaw(context, request, cq));
+    }
     virtual ::grpc::Status RespondToText(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::PyRPC::ConversationResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::ConversationResponse>> AsyncRespondToText(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::ConversationResponse>>(AsyncRespondToTextRaw(context, request, cq));
@@ -64,6 +71,18 @@ class PyRPCService final {
       virtual void TextToSpeech(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::TTSOutput* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
       virtual void TextToSpeech(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::TTSOutput* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SpeechToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::STTOutput* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SpeechToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::STTOutput* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SpeechToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::STTOutput* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       virtual void RespondToText(::grpc::ClientContext* context, const ::PyRPC::ConversationInput* request, ::PyRPC::ConversationResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void RespondToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::ConversationResponse* response, std::function<void(::grpc::Status)>) = 0;
@@ -88,6 +107,8 @@ class PyRPCService final {
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::TTSOutput>* AsyncTextToSpeechRaw(::grpc::ClientContext* context, const ::PyRPC::TTSInput& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::TTSOutput>* PrepareAsyncTextToSpeechRaw(::grpc::ClientContext* context, const ::PyRPC::TTSInput& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::STTOutput>* AsyncSpeechToTextRaw(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::STTOutput>* PrepareAsyncSpeechToTextRaw(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::ConversationResponse>* AsyncRespondToTextRaw(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::PyRPC::ConversationResponse>* PrepareAsyncRespondToTextRaw(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::grpc::CompletionQueue* cq) = 0;
   };
@@ -100,6 +121,13 @@ class PyRPCService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::PyRPC::TTSOutput>> PrepareAsyncTextToSpeech(::grpc::ClientContext* context, const ::PyRPC::TTSInput& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::PyRPC::TTSOutput>>(PrepareAsyncTextToSpeechRaw(context, request, cq));
+    }
+    ::grpc::Status SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::PyRPC::STTOutput* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::PyRPC::STTOutput>> AsyncSpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::PyRPC::STTOutput>>(AsyncSpeechToTextRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::PyRPC::STTOutput>> PrepareAsyncSpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::PyRPC::STTOutput>>(PrepareAsyncSpeechToTextRaw(context, request, cq));
     }
     ::grpc::Status RespondToText(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::PyRPC::ConversationResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::PyRPC::ConversationResponse>> AsyncRespondToText(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::grpc::CompletionQueue* cq) {
@@ -122,6 +150,18 @@ class PyRPCService final {
       void TextToSpeech(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::TTSOutput* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
       void TextToSpeech(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::TTSOutput* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response, std::function<void(::grpc::Status)>) override;
+      void SpeechToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::STTOutput* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SpeechToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::STTOutput* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SpeechToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::STTOutput* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       void RespondToText(::grpc::ClientContext* context, const ::PyRPC::ConversationInput* request, ::PyRPC::ConversationResponse* response, std::function<void(::grpc::Status)>) override;
       void RespondToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::ConversationResponse* response, std::function<void(::grpc::Status)>) override;
@@ -148,9 +188,12 @@ class PyRPCService final {
     class experimental_async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::PyRPC::TTSOutput>* AsyncTextToSpeechRaw(::grpc::ClientContext* context, const ::PyRPC::TTSInput& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::PyRPC::TTSOutput>* PrepareAsyncTextToSpeechRaw(::grpc::ClientContext* context, const ::PyRPC::TTSInput& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::PyRPC::STTOutput>* AsyncSpeechToTextRaw(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::PyRPC::STTOutput>* PrepareAsyncSpeechToTextRaw(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::PyRPC::ConversationResponse>* AsyncRespondToTextRaw(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::PyRPC::ConversationResponse>* PrepareAsyncRespondToTextRaw(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_TextToSpeech_;
+    const ::grpc::internal::RpcMethod rpcmethod_SpeechToText_;
     const ::grpc::internal::RpcMethod rpcmethod_RespondToText_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -160,6 +203,7 @@ class PyRPCService final {
     Service();
     virtual ~Service();
     virtual ::grpc::Status TextToSpeech(::grpc::ServerContext* context, const ::PyRPC::TTSInput* request, ::PyRPC::TTSOutput* response);
+    virtual ::grpc::Status SpeechToText(::grpc::ServerContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response);
     virtual ::grpc::Status RespondToText(::grpc::ServerContext* context, const ::PyRPC::ConversationInput* request, ::PyRPC::ConversationResponse* response);
   };
   template <class BaseClass>
@@ -183,12 +227,32 @@ class PyRPCService final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_SpeechToText : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_SpeechToText() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_SpeechToText() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SpeechToText(::grpc::ServerContext* /*context*/, const ::PyRPC::STTInput* /*request*/, ::PyRPC::STTOutput* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSpeechToText(::grpc::ServerContext* context, ::PyRPC::STTInput* request, ::grpc::ServerAsyncResponseWriter< ::PyRPC::STTOutput>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_RespondToText : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RespondToText() {
-      ::grpc::Service::MarkMethodAsync(1);
+      ::grpc::Service::MarkMethodAsync(2);
     }
     ~WithAsyncMethod_RespondToText() override {
       BaseClassMustBeDerivedFromService(this);
@@ -199,10 +263,10 @@ class PyRPCService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRespondToText(::grpc::ServerContext* context, ::PyRPC::ConversationInput* request, ::grpc::ServerAsyncResponseWriter< ::PyRPC::ConversationResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_TextToSpeech<WithAsyncMethod_RespondToText<Service > > AsyncService;
+  typedef WithAsyncMethod_TextToSpeech<WithAsyncMethod_SpeechToText<WithAsyncMethod_RespondToText<Service > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_TextToSpeech : public BaseClass {
    private:
@@ -251,6 +315,53 @@ class PyRPCService final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithCallbackMethod_SpeechToText : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_SpeechToText() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::PyRPC::STTInput, ::PyRPC::STTOutput>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response) { return this->SpeechToText(context, request, response); }));}
+    void SetMessageAllocatorFor_SpeechToText(
+        ::grpc::experimental::MessageAllocator< ::PyRPC::STTInput, ::PyRPC::STTOutput>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::PyRPC::STTInput, ::PyRPC::STTOutput>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_SpeechToText() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SpeechToText(::grpc::ServerContext* /*context*/, const ::PyRPC::STTInput* /*request*/, ::PyRPC::STTOutput* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SpeechToText(
+      ::grpc::CallbackServerContext* /*context*/, const ::PyRPC::STTInput* /*request*/, ::PyRPC::STTOutput* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SpeechToText(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::PyRPC::STTInput* /*request*/, ::PyRPC::STTOutput* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class ExperimentalWithCallbackMethod_RespondToText : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -261,7 +372,7 @@ class PyRPCService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(1,
+        MarkMethodCallback(2,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::PyRPC::ConversationInput, ::PyRPC::ConversationResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -273,9 +384,9 @@ class PyRPCService final {
     void SetMessageAllocatorFor_RespondToText(
         ::grpc::experimental::MessageAllocator< ::PyRPC::ConversationInput, ::PyRPC::ConversationResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
     #endif
       static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::PyRPC::ConversationInput, ::PyRPC::ConversationResponse>*>(handler)
               ->SetMessageAllocator(allocator);
@@ -298,10 +409,10 @@ class PyRPCService final {
       { return nullptr; }
   };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_TextToSpeech<ExperimentalWithCallbackMethod_RespondToText<Service > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_TextToSpeech<ExperimentalWithCallbackMethod_SpeechToText<ExperimentalWithCallbackMethod_RespondToText<Service > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_TextToSpeech<ExperimentalWithCallbackMethod_RespondToText<Service > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_TextToSpeech<ExperimentalWithCallbackMethod_SpeechToText<ExperimentalWithCallbackMethod_RespondToText<Service > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_TextToSpeech : public BaseClass {
    private:
@@ -320,12 +431,29 @@ class PyRPCService final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_SpeechToText : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_SpeechToText() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_SpeechToText() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SpeechToText(::grpc::ServerContext* /*context*/, const ::PyRPC::STTInput* /*request*/, ::PyRPC::STTOutput* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_RespondToText : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RespondToText() {
-      ::grpc::Service::MarkMethodGeneric(1);
+      ::grpc::Service::MarkMethodGeneric(2);
     }
     ~WithGenericMethod_RespondToText() override {
       BaseClassMustBeDerivedFromService(this);
@@ -357,12 +485,32 @@ class PyRPCService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_SpeechToText : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_SpeechToText() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_SpeechToText() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SpeechToText(::grpc::ServerContext* /*context*/, const ::PyRPC::STTInput* /*request*/, ::PyRPC::STTOutput* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSpeechToText(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_RespondToText : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RespondToText() {
-      ::grpc::Service::MarkMethodRaw(1);
+      ::grpc::Service::MarkMethodRaw(2);
     }
     ~WithRawMethod_RespondToText() override {
       BaseClassMustBeDerivedFromService(this);
@@ -373,7 +521,7 @@ class PyRPCService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRespondToText(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -415,6 +563,44 @@ class PyRPCService final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_SpeechToText : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_SpeechToText() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SpeechToText(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_SpeechToText() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SpeechToText(::grpc::ServerContext* /*context*/, const ::PyRPC::STTInput* /*request*/, ::PyRPC::STTOutput* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SpeechToText(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SpeechToText(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class ExperimentalWithRawCallbackMethod_RespondToText : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -425,7 +611,7 @@ class PyRPCService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(1,
+        MarkMethodRawCallback(2,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -480,12 +666,39 @@ class PyRPCService final {
     virtual ::grpc::Status StreamedTextToSpeech(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::PyRPC::TTSInput,::PyRPC::TTSOutput>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_SpeechToText : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_SpeechToText() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::PyRPC::STTInput, ::PyRPC::STTOutput>(
+            [this](::grpc_impl::ServerContext* context,
+                   ::grpc_impl::ServerUnaryStreamer<
+                     ::PyRPC::STTInput, ::PyRPC::STTOutput>* streamer) {
+                       return this->StreamedSpeechToText(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_SpeechToText() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status SpeechToText(::grpc::ServerContext* /*context*/, const ::PyRPC::STTInput* /*request*/, ::PyRPC::STTOutput* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedSpeechToText(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::PyRPC::STTInput,::PyRPC::STTOutput>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_RespondToText : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RespondToText() {
-      ::grpc::Service::MarkMethodStreamed(1,
+      ::grpc::Service::MarkMethodStreamed(2,
         new ::grpc::internal::StreamedUnaryHandler<
           ::PyRPC::ConversationInput, ::PyRPC::ConversationResponse>(
             [this](::grpc_impl::ServerContext* context,
@@ -506,9 +719,9 @@ class PyRPCService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedRespondToText(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::PyRPC::ConversationInput,::PyRPC::ConversationResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_TextToSpeech<WithStreamedUnaryMethod_RespondToText<Service > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_TextToSpeech<WithStreamedUnaryMethod_SpeechToText<WithStreamedUnaryMethod_RespondToText<Service > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_TextToSpeech<WithStreamedUnaryMethod_RespondToText<Service > > StreamedService;
+  typedef WithStreamedUnaryMethod_TextToSpeech<WithStreamedUnaryMethod_SpeechToText<WithStreamedUnaryMethod_RespondToText<Service > > > StreamedService;
 };
 
 }  // namespace PyRPC

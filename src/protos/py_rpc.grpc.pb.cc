@@ -23,6 +23,7 @@ namespace PyRPC {
 
 static const char* PyRPCService_method_names[] = {
   "/PyRPC.PyRPCService/TextToSpeech",
+  "/PyRPC.PyRPCService/SpeechToText",
   "/PyRPC.PyRPCService/RespondToText",
 };
 
@@ -34,7 +35,8 @@ std::unique_ptr< PyRPCService::Stub> PyRPCService::NewStub(const std::shared_ptr
 
 PyRPCService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_TextToSpeech_(PyRPCService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_RespondToText_(PyRPCService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SpeechToText_(PyRPCService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_RespondToText_(PyRPCService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status PyRPCService::Stub::TextToSpeech(::grpc::ClientContext* context, const ::PyRPC::TTSInput& request, ::PyRPC::TTSOutput* response) {
@@ -63,6 +65,34 @@ void PyRPCService::Stub::experimental_async::TextToSpeech(::grpc::ClientContext*
 
 ::grpc::ClientAsyncResponseReader< ::PyRPC::TTSOutput>* PyRPCService::Stub::PrepareAsyncTextToSpeechRaw(::grpc::ClientContext* context, const ::PyRPC::TTSInput& request, ::grpc::CompletionQueue* cq) {
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::PyRPC::TTSOutput>::Create(channel_.get(), cq, rpcmethod_TextToSpeech_, context, request, false);
+}
+
+::grpc::Status PyRPCService::Stub::SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::PyRPC::STTOutput* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SpeechToText_, context, request, response);
+}
+
+void PyRPCService::Stub::experimental_async::SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SpeechToText_, context, request, response, std::move(f));
+}
+
+void PyRPCService::Stub::experimental_async::SpeechToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::STTOutput* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SpeechToText_, context, request, response, std::move(f));
+}
+
+void PyRPCService::Stub::experimental_async::SpeechToText(::grpc::ClientContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SpeechToText_, context, request, response, reactor);
+}
+
+void PyRPCService::Stub::experimental_async::SpeechToText(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::PyRPC::STTOutput* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SpeechToText_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::PyRPC::STTOutput>* PyRPCService::Stub::AsyncSpeechToTextRaw(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::PyRPC::STTOutput>::Create(channel_.get(), cq, rpcmethod_SpeechToText_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::PyRPC::STTOutput>* PyRPCService::Stub::PrepareAsyncSpeechToTextRaw(::grpc::ClientContext* context, const ::PyRPC::STTInput& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::PyRPC::STTOutput>::Create(channel_.get(), cq, rpcmethod_SpeechToText_, context, request, false);
 }
 
 ::grpc::Status PyRPCService::Stub::RespondToText(::grpc::ClientContext* context, const ::PyRPC::ConversationInput& request, ::PyRPC::ConversationResponse* response) {
@@ -107,6 +137,16 @@ PyRPCService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       PyRPCService_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< PyRPCService::Service, ::PyRPC::STTInput, ::PyRPC::STTOutput>(
+          [](PyRPCService::Service* service,
+             ::grpc_impl::ServerContext* ctx,
+             const ::PyRPC::STTInput* req,
+             ::PyRPC::STTOutput* resp) {
+               return service->SpeechToText(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      PyRPCService_method_names[2],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< PyRPCService::Service, ::PyRPC::ConversationInput, ::PyRPC::ConversationResponse>(
           [](PyRPCService::Service* service,
              ::grpc_impl::ServerContext* ctx,
@@ -120,6 +160,13 @@ PyRPCService::Service::~Service() {
 }
 
 ::grpc::Status PyRPCService::Service::TextToSpeech(::grpc::ServerContext* context, const ::PyRPC::TTSInput* request, ::PyRPC::TTSOutput* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status PyRPCService::Service::SpeechToText(::grpc::ServerContext* context, const ::PyRPC::STTInput* request, ::PyRPC::STTOutput* response) {
   (void) context;
   (void) request;
   (void) response;
