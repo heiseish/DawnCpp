@@ -52,8 +52,8 @@ std::string GPTClient::Respond(const std::string& input_text) const
     return "RPC failed";
 }
 
-std::vector<Message> UnknownBaseAction::Execute([
-    [maybe_unused]] MessageRequest&& request) const
+std::vector<Message> UnknownBaseAction::Execute(
+    [[maybe_unused]] MessageRequest&& request) const
 {
     std::vector<Message> reply;
     Message initial;

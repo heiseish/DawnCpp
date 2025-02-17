@@ -3,8 +3,7 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class GetCurrentDirectoryTest : public ::testing::Test {
-};
+class GetCurrentDirectoryTest : public ::testing::Test {};
 
 TEST_F(GetCurrentDirectoryTest, GetCurrentDirectory)
 {

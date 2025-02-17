@@ -16,8 +16,8 @@ WeatherBaseAction::WeatherBaseAction()
 {
 }
 
-std::vector<Message> WeatherBaseAction::Execute([
-    [maybe_unused]] MessageRequest&& request) const
+std::vector<Message> WeatherBaseAction::Execute(
+    [[maybe_unused]] MessageRequest&& request) const
 {
     std::vector<Message> reply;
     External::WeatherDetails weather_details;

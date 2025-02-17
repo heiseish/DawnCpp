@@ -99,8 +99,9 @@ void Application::Start()
 
     // ---------- Responding thread -------------
     SA::delegate<void(MessageResponse)> res_delegate_;
-    auto res_delegate_instance_ = decltype(
-        res_delegate_)::create<Application, &Application::respond>(this);
+    auto res_delegate_instance_ =
+        decltype(res_delegate_)::create<Application, &Application::respond>(
+            this);
     ThreadManager::RespondingThread = std::make_unique<
         Utility::WorkerThread<MessageResponse, decltype(res_delegate_)>>(
         "RespondingThread", res_delegate_instance_, _response_queue);

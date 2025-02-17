@@ -3,8 +3,7 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class EncryptTest : public ::testing::Test {
-};
+class EncryptTest : public ::testing::Test {};
 
 TEST_F(EncryptTest, sha256)
 {

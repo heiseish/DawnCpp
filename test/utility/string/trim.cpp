@@ -3,8 +3,7 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class StringTrimTest : public ::testing::Test {
-};
+class StringTrimTest : public ::testing::Test {};
 
 TEST_F(StringTrimTest, Trim)
 {

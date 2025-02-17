@@ -10,8 +10,7 @@ namespace Dawn::Utility {
 namespace {
 namespace fs = std::filesystem;
 }
-class FromJsonFileTest : public ::testing::Test {
-};
+class FromJsonFileTest : public ::testing::Test {};
 
 TEST_F(FromJsonFileTest, GetContentCorrectly)
 {

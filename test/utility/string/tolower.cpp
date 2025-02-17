@@ -3,8 +3,7 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class StringTolowerTest : public ::testing::Test {
-};
+class StringTolowerTest : public ::testing::Test {};
 
 TEST_F(StringTolowerTest, ConvertLowerWithString)
 {

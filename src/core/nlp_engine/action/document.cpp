@@ -8,8 +8,8 @@
 
 namespace Dawn::Core {
 
-std::vector<Message> DocumentBaseAction::Execute([
-    [maybe_unused]] MessageRequest&& request) const
+std::vector<Message> DocumentBaseAction::Execute(
+    [[maybe_unused]] MessageRequest&& request) const
 {
     std::vector<Message> reply;
     auto image_url = _unsplash_api.GetRandomUnsplashPhoto();

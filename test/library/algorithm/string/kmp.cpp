@@ -3,8 +3,7 @@
 
 namespace Dawn::Library::Algorithm {
 
-class KmpAlgorithmTest : public ::testing::Test {
-};
+class KmpAlgorithmTest : public ::testing::Test {};
 
 TEST_F(KmpAlgorithmTest, CheckASCIIContainsCorrectly)
 {

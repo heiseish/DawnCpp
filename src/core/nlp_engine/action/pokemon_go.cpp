@@ -21,8 +21,8 @@ PokemonGoBaseAction::PokemonGoBaseAction()
 {
 }
 
-std::vector<Message> PokemonGoBaseAction::Execute([
-    [maybe_unused]] MessageRequest&& request) const
+std::vector<Message> PokemonGoBaseAction::Execute(
+    [[maybe_unused]] MessageRequest&& request) const
 {
     std::vector<Message> reply;
     auto tweets = _api.RecentTimelinePosts("PokemonGoApp");

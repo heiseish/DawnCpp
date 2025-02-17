@@ -3,8 +3,7 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class StringReplaceTest : public ::testing::Test {
-};
+class StringReplaceTest : public ::testing::Test {};
 
 TEST_F(StringReplaceTest, ReplaceWithDefaultOffsset)
 {

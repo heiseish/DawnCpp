@@ -3,8 +3,7 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class ToIntTest : public ::testing::Test {
-};
+class ToIntTest : public ::testing::Test {};
 
 TEST_F(ToIntTest, ToInt)
 {

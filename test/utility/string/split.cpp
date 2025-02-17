@@ -4,8 +4,7 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class StringSplitTest : public ::testing::Test {
-};
+class StringSplitTest : public ::testing::Test {};
 
 TEST_F(StringSplitTest, SplitCorrectly)
 {

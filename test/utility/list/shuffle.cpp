@@ -3,8 +3,7 @@
 #include "gtest/gtest.h"
 namespace Dawn::Utility {
 
-class ShuffleTest : public ::testing::Test {
-};
+class ShuffleTest : public ::testing::Test {};
 
 TEST_F(ShuffleTest, ShuffleWholeVector)
 {
